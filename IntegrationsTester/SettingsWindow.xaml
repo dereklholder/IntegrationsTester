@@ -1,0 +1,34 @@
+﻿<Window x:Class="IntegrationsTester.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:IntegrationsTester"
+        xmlns:variableHandlers="clr-namespace:IntegrationsTester.VariableHandlers"
+        mc:Ignorable="d"
+        Title="Settings" Height="251.678" Width="493.96" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
+    <Grid>
+        <Label x:Name="EnvironmentLabel" Content="Environment:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <ComboBox HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="80" SelectionChanged="ComboBox_SelectionChanged">
+            <ComboBoxItem Content="TEST" Name="TEST"/>
+            <ComboBoxItem Content="LIVE" Name="LIVE"/>
+        </ComboBox>
+        <Label x:Name="DuplicateModeLabel" Content="Duplicate Mode:" HorizontalAlignment="Left" Margin="95,10,0,0" VerticalAlignment="Top"/>
+        <ComboBox HorizontalAlignment="Left" Margin="95,36,0,0" VerticalAlignment="Top" Width="120">
+            <ComboBoxItem Content="Checking On" Name="CHECK"/>
+            <ComboBoxItem Content="Checking Off" Name="NO_CHECK"/>
+        </ComboBox>
+        <Button x:Name="SaveButton" Content="Save" HorizontalAlignment="Left" Margin="10,197,0,0" VerticalAlignment="Top" Width="75" Click="SaveButton_Click" IsDefault="True"/>
+        <Label x:Name="CustomCredentialsLabel" Content="Custom Credentials:" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="AccountTokenLabel" Content="Account Token:" HorizontalAlignment="Left" Margin="10,89,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="AccountTokenBox" HorizontalAlignment="Left" Height="23" Margin="10,115,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="466" Text="{Binding Source={x:Static variableHandlers:StandardCredentials.Default}, Path=ActiveAccountToken}"/>
+        <Label x:Name="XWebIDLabel" Content="XWeb ID:" HorizontalAlignment="Left" Margin="10,143,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="XWebTerminalIDLabel" Content="XWeb Terminal ID:" HorizontalAlignment="Left" Margin="154,143,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="XWebIDBox" HorizontalAlignment="Left" Height="23" Margin="10,169,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:StandardCredentials.Default}, Path=ActiveXWebID}" VerticalAlignment="Top" Width="139"/>
+        <TextBox x:Name="XWebTerminalIDBox" HorizontalAlignment="Left" Height="23" Margin="154,169,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:StandardCredentials.Default}, Path=ActiveXWebTerminalID}" VerticalAlignment="Top" Width="120"/>
+        <Label x:Name="XWebAuthKeyLabel" Content="XWeb Auth Key:" HorizontalAlignment="Left" Margin="278,143,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="XWebAuthKeyBox" HorizontalAlignment="Left" Height="23" Margin="279,169,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:StandardCredentials.Default}, Path=ActiveXWebAuthKey}" VerticalAlignment="Top" Width="197"/>
+        <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="90,197,0,0" VerticalAlignment="Top" Width="75" IsCancel="True" Click="CancelButton_Click"/>
+
+    </Grid>
+</Window>
