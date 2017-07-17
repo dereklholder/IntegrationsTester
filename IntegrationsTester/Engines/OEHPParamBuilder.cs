@@ -18,7 +18,18 @@ namespace IntegrationsTester.Engines
         private string _transactionConditionCode;
         private string _customParameters;
         private string _duplicateMode;
-        
+        /// <summary>
+        /// Method Builds an OEHP Parameter string to be used for a transaction requyest
+        /// </summary>
+        /// <param name="account_token">Account Token Credential</param>
+        /// <param name="transaction_type">Credit, Debit, ACH, Interac, Credit or Debit</param>
+        /// <param name="entry_mode">Keyed, Auto, EMV</param>
+        /// <param name="charge_type">Depends on Transaction Type</param>
+        /// <param name="charge_total">Amount of Transaction</param>
+        /// <param name="order_id">Unique Identifier for Transaction</param>
+        /// <param name="account_type">For Debit EBT Transactions, or for ACH Savings vs Checking account</param>
+        /// <param name="transaction_condition_code">Determines transaction condition, either Recurring, or for ACH SEC Codes</param>
+        /// <param name="custom_parameters">Any Additional Parameters sent, must be in NVP format</param>
         public OEHPParamBuilder(string account_token, string transaction_type, string entry_mode, string charge_type, string charge_total, string order_id, string account_type, string transaction_condition_code, string custom_parameters)
         {
             _accountToken = account_token;
@@ -61,7 +72,10 @@ namespace IntegrationsTester.Engines
             }
             catch (Exception ex)
             {
-                //Implement Logging
+                using (GeneralFunctions.Logging log = new GeneralFunctions.Logging(ex.ToString()))
+                {
+                    log.WriteLog();
+                }
                 return ex.ToString();
             }
         }

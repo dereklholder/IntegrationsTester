@@ -61,7 +61,8 @@ namespace IntegrationsTester.VariableHandlers {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C9CBE35FCE67540F328FE4FC8758AF6DCECC24954FB2C4FFE4A24F2B81D95FEA9953BC5CF45601D07" +
+            "8")]
         public string AccountToken {
             get {
                 return ((string)(this["AccountToken"]));
@@ -88,7 +89,8 @@ namespace IntegrationsTester.VariableHandlers {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("TestTest")]
+        [global::System.Configuration.DefaultSettingValueAttribute("C9CBE35FCE67540F328FE4FC8758AF6DCECC24954FB2C4FFE4A24F2B81D95FEA9953BC5CF45601D07" +
+            "8")]
         public string ActiveAccountToken {
             get {
                 return ((string)(this["ActiveAccountToken"]));

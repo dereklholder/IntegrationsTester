@@ -10,14 +10,19 @@ using System.Windows;
 
 namespace IntegrationsTester.Engines
 { 
-    public class OEHPEngine
+    public class OEHPEngine 
     {
         private string _environment;
         private string _parameters;
         public string _requestMethod;
         private string _urlToUse;
         public string ErrorMessage;
-
+        public string SessionToken;
+        /// <summary>
+        /// Sends request to API and returns resposne
+        /// </summary>
+        /// <param name="parameters">Use OEHP parambuilder to buidl request, or raw OEHP requst coule be sent in</param>
+        /// <param name="requestMethod">Which method to use to get transaction, PayPAge returns URL, HTMLdoc returns HTML, DirectPost returns raw API response.</param>
         public OEHPEngine(string parameters, string requestMethod)
         {
             _environment = VariableHandlers.Globals.Default.Environment;
@@ -27,18 +32,29 @@ namespace IntegrationsTester.Engines
 
         public string Execute()
         {
-            switch (_requestMethod)
+            try
             {
-                case "PayPage":
-                    return PayPagePost();
-                case "HTMLDoc":
-                    return HTMLDocPost();
-                case "DirectPost":
-                    return DirectPost();
-                default:
-                    throw new InvalidOperationException("Invalid Request Method");
+                switch (_requestMethod)
+                {
+                    case "PayPage":
+                        return PayPagePost();
+                    case "HTMLDoc":
+                        return HTMLDocPost();
+                    case "DirectPost":
+                        return DirectPost();
+                    default:
+                        throw new InvalidOperationException("Invalid Request Method");
+                }
             }
-                
+            catch (Exception ex)
+            {
+                MessageBox.Show("An Exception Occured, please check the log");
+                using (var n = new GeneralFunctions.Logging(ex.ToString()))
+                {
+                    n.WriteLog();
+                }
+                return ex.ToString();
+            }            
         }
         private void urlToUse()
         {
@@ -110,7 +126,7 @@ namespace IntegrationsTester.Engines
                 jsonResponse = JsonConvert.DeserializeObject<VariableHandlers.PayPageJson>(responseFromOehp);
 
                 string result = jsonResponse.actionUrl + jsonResponse.sealedSetupParameters;
-
+                SessionToken = jsonResponse.sealedSetupParameters;
                 if (jsonResponse.errorMessage != null)
                 {
                     result = jsonResponse.errorMessage;
@@ -122,8 +138,7 @@ namespace IntegrationsTester.Engines
             }
             catch(Exception ex)
             {
-                MessageBox.Show("An Exception Occured, please check the log");
-                //Implement Logging.
+                
                 return ex.ToString();
             }
 
@@ -202,6 +217,7 @@ namespace IntegrationsTester.Engines
             }
             catch (Exception ex)
             {
+                
                 return ex.ToString();
 
             }

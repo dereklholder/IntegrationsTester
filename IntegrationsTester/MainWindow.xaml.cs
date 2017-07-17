@@ -21,7 +21,273 @@ namespace IntegrationsTester
     /// </summary>
     public partial class MainWindow : Window
     {
-        #region UICollection Handlers for OEHP, NOW WITH VISIBILITY!
+        
+        public MainWindow()
+        {
+            InitializeComponent();
+            SetCommonCollections();
+         
+        }
+        #region OEHP Processing Methods
+        private string _html; //Variable Used to keep Scraped HTML and keep it in scope of all the methods that need to access it
+        private string _sessionToken; //Keep sesssion token in scope of all methods that need to access it
+        private void RenderBrowser(Engines.OEHPEngine requestToOEHP)
+        {
+            string getResponseFromOEHP = requestToOEHP.Execute();
+            _sessionToken = requestToOEHP.SessionToken;
+            if (requestToOEHP.ErrorMessage == null)
+            {
+                switch (requestToOEHP._requestMethod)
+                {
+                    case "PayPage":
+                        oehpChromiumBrowser.Load(getResponseFromOEHP);
+                        break;
+                    case "HTMLDoc":
+                        CefSharp.WebBrowserExtensions.LoadHtml(oehpChromiumBrowser, getResponseFromOEHP, false);
+                        break;
+                    case "DirectPost":
+                        oehpChromiumBrowser.Content = getResponseFromOEHP;
+                        break;
+                    default:
+                        oehpChromiumBrowser.Content = "Unkown Error Occured, Check all Transaction Parameters";
+                        break;
+                }
+            }
+            else
+            {
+                oehpChromiumBrowser.Content = requestToOEHP.ErrorMessage;
+            }
+        }
+        private void logParametersAndResponse() //splitting this into its own method to make code prettier
+        {
+            using (var n = new GeneralFunctions.Logging(PostParametersBox.Text.ToString()))
+            {
+                n.WriteLog();
+            }
+            using (var n = new GeneralFunctions.Logging(QueryResponseBox.Text.ToString()))
+            {
+                n.WriteLog();
+            }
+        }
+        private string sendQuery()
+        {
+            Engines.OEHPParamBuilder buildPost = new Engines.OEHPParamBuilder(StandardCredentials.Default.ActiveAccountToken, (string)TransactionTypeComboBox.SelectedItem, "KEYED", "QUERY", "", OrderIDBox.Text, "", "", "&full_detail_flag=true");
+            string queryParameters = buildPost.BuildAPost();
+            Engines.OEHPEngine sendPost = new Engines.OEHPEngine(queryParameters, "DirectPost");
+
+            string response = sendPost.Execute();
+            QueryResponseBox.Text = response;
+            return response;
+
+        }
+        private string getSubmitMethodToUse()
+        {
+            switch ((string)ChargeTypeComboBox.SelectedItem)
+            {
+                case "CREDIT":
+                    string value = "";
+                    if ((string)CreditTypeComboBox.SelectedItem == "DEPENDENT")
+                    {
+                        value = "DirectPost";
+                    }
+                    if ((string)CreditTypeComboBox.SelectedItem == "INDEPENDENT")
+                    {
+                        value = "PayPage";
+                    }
+                    return value;
+                case "SALE":
+                    return "PayPage";
+                case "VOID":
+                    return "DirectPost";
+                case "FORCE_SALE":
+                    return "DirectPost";
+                case "CAPTURE":
+                    return "DirectPost";
+                case "AUTH":
+                    return "PayPage";
+                case "ADJUSTMENT":
+                    return "DirectPost";
+                case "SIGNATURE":
+                    return "PayPage";
+                case "QUERY_PAYMENT":
+                    return "DirectPost";
+                case "QUERY_PURCHASE":
+                    return "DirectPost";
+                case "PURCHASE":
+                    return "PayPage";
+                case "REFUND":
+                    return "PayPage";
+                case "QUERY":
+                    return "DirectPost";
+                default:
+                    return null;
+            }
+        }
+        private async Task<string> getSignatureString(string html)
+        {
+            var tcs = new TaskCompletionSource<string>();
+            if (html != null)
+            {
+                HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+                doc.LoadHtml(html);
+                try
+                {
+                    string result = doc.DocumentNode.SelectSingleNode("//input[@type='hidden' and @id='signatureImage' and @name='signatureImage']").Attributes["value"].Value;
+                    tcs.TrySetResult(result);
+                    return tcs.Task.Result.ToString();
+                }
+                catch (Exception ex)
+                {
+                    using (var n = new GeneralFunctions.Logging(ex.ToString()))
+                    {
+                        n.WriteLog();
+                    }
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+        private async Task<string> getPaymentFinishedSignal(string html)
+        {
+            var tcs = new TaskCompletionSource<string>();
+            if (html != null)
+            {
+                HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument(); //Uses HTMl Agility Pack for Easy HTMl Parseing (Regex bad)
+                doc.LoadHtml(html);
+                try
+                {
+                    var values = from value in doc.DocumentNode.Descendants("input")
+                                 where value.Attributes["id"].Value == "paymentFinishedSignal"
+                                 select value;
+
+                    foreach (var value in values)
+                    {
+                        Console.WriteLine(value.Attributes["value"].Value);
+                        tcs.TrySetResult(value.Attributes["value"].Value);
+
+                    }
+                    return tcs.Task.Result.ToString();
+                }
+                catch (Exception ex)
+                {
+                    using (var n = new GeneralFunctions.Logging(ex.ToString()))
+                    {
+                        n.WriteLog();
+                    }
+                    return null;
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+        private async void getRcmStatus(string sessionToken)
+        {
+            Engines.OEHPRCMStatus rcmStatus = new Engines.OEHPRCMStatus(sessionToken);
+            this.Dispatcher.Invoke(() =>
+            {
+                RCMStatusBox.Text = rcmStatus.Execute();
+            });
+        }
+        private bool getTransactionIsDirectPost(string chargeType)
+        {
+            if (chargeType == "VOID" || chargeType == "CAPTURE" || chargeType == "AUTH" || chargeType == "ADJUSTMENT")
+            {
+                return true;
+            }
+            if (chargeType == "CREDIT" && (string)CreditTypeComboBox.SelectedItem == "DEPENDENT")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        //Frame loadEndEvent is hooked for performing Query logic 
+        private async void oehpChromiumBrowser_FrameLoadEnd(object sender, CefSharp.FrameLoadEndEventArgs e)
+        {
+
+            //Implement RCM Status
+            if (e.Frame.IsMain)
+            {
+                await oehpChromiumBrowser.GetBrowser().MainFrame.GetSourceAsync().ContinueWith(taskHtml =>
+                {
+                    string html = taskHtml.Result;
+                    _html = html;
+                });
+            }
+            //Initialize these variables outside of Invoke
+            string paymentFinishedSignal = await getPaymentFinishedSignal(_html).ConfigureAwait(false); //Hacking My way through Async Functions Because I can
+            getRcmStatus(_sessionToken);
+            string sigString = await getSignatureString(_html).ConfigureAwait(false);
+
+            this.Dispatcher.Invoke(() =>
+            {
+                //RCMStatusBox.Text = rcmStatus;
+                bool isDirectPost = getTransactionIsDirectPost((string)ChargeTypeComboBox.SelectedItem);
+                if (isDirectPost == true)
+                {
+                    sendQuery();
+                }
+                else if (paymentFinishedSignal == "done")
+                {
+                    switch ((string)TransactionTypeComboBox.SelectedItem)
+                    {
+                        case "CREDIT_CARD":
+                            sendQuery();
+                            logParametersAndResponse();
+                            //Parse Result and Save to DB
+                            if (sigString != null)
+                            {
+                                SignatureImage.Source = GeneralFunctions.DataManipulation.DecodeBase64Image(sigString);
+                            }
+                            break;
+                        case "CREDIT_DEBIT_CARD":
+                            sendQuery();
+                            logParametersAndResponse();
+                            //pArse Result and Save to DB
+                            if (sigString != null)
+                            {
+                                SignatureImage.Source = GeneralFunctions.DataManipulation.DecodeBase64Image(sigString);
+                            }
+                            break;
+                        case "DEBIT_CARD":
+                            sendQuery();
+                            logParametersAndResponse();
+                            //parse result and save to DB
+                            break;
+                        case "INTERAC":
+                            sendQuery();
+                            logParametersAndResponse();
+                            //parse Result and save to db
+                            break;
+                        case "ACH":
+                            sendQuery();
+                            logParametersAndResponse();
+                            //Parse Result and Save to DB
+                            break;
+                        default:
+                            using (var n = new GeneralFunctions.Logging("Something Broke in an Unhandled way.. Check Parameters and try again"))
+                            {
+                                n.WriteLog();
+                            }
+                            break;
+                    }
+                }
+                else
+                {
+                    //Do nothing
+                }
+            });
+
+        }
+        #endregion
+        #region UI - Collection Handlers for OEHP, NOW WITH VISIBILITY!
         public void SetCommonCollections() //Make sure to keep implementing!
         {
             TransactionTypeComboBox.ItemsSource = UICollections.TransactionTypeValues();
@@ -138,89 +404,34 @@ namespace IntegrationsTester
             CreditTypeLabel.Visibility = Visibility.Hidden;
         }
         #endregion
-        public MainWindow()
+        #region UI - OEHP Button Interaction
+        private void BuildPostButton_Click(object sender, RoutedEventArgs e)
         {
-            InitializeComponent();
-            SetCommonCollections();
-         
-        }
-        private void RenderBrowser(Engines.OEHPEngine requestToOEHP)
-        {
-            string getResponseFromOEHP = requestToOEHP.Execute();
-            if (requestToOEHP.ErrorMessage == null)
-            {
-                switch (requestToOEHP._requestMethod)
-                {
-                    case "PayPage":
-                        oehpChromiumBrowser.Load(getResponseFromOEHP);
-                        break;
-                    case "HTMLDoc":
-                            CefSharp.WebBrowserExtensions.LoadHtml(oehpChromiumBrowser, getResponseFromOEHP, false);
-                        break;
-                    case "DirectPost":
-                        oehpChromiumBrowser.Content = getResponseFromOEHP;
-                        break;
-                    default:
-                        oehpChromiumBrowser.Content = "Unkown Error Occured, Check all Transaction Parameters";
-                        break;
-                }
-            }
-            else
-            {
-                oehpChromiumBrowser.Content = requestToOEHP.ErrorMessage;
-            }
-        }
-        private string getSubmitMethodToUse()
-        {
-            switch ((string)ChargeTypeComboBox.SelectedItem)
-            {
-                case "CREDIT":
-                    string value = "";
-                    if ((string)CreditTypeComboBox.SelectedItem == "DEPENDENT")
-                    {
-                        value = "DirectPost";
-                    }
-                    if ((string)CreditTypeComboBox.SelectedItem == "INDEPENDENT")
-                    {
-                        value =  "PayPage";
-                    }
-                    return value;
-                case "SALE":
-                    return "PayPage";
-                case "VOID":
-                    return "DirectPost";
-                case "FORCE_SALE":
-                    return "DirectPost";
-                case "CAPTURE":
-                    return "DirectPost";
-                case "AUTH":
-                    return "PayPage";
-                case "ADJUSTMENT":
-                    return "DirectPost";
-                case "SIGNATURE":
-                    return "PayPage";
-                case "QUERY_PAYMENT":
-                    return "DirectPost";
-                case "QUERY_PURCHASE":
-                    return "DirectPost";
-                case "PURCHASE":
-                    return "PayPage";
-                case "REFUND":
-                    return "PayPage";
-                case "QUERY":
-                    return "DirectPost";
-                default:
-                    return null;
-            }
-        }
-        //Placeholder Button! Do nto use
-        private void basicTestButtonPH_Click(object sender, RoutedEventArgs e)
-        {
-            Engines.OEHPEngine engine = new Engines.OEHPEngine(VariableHandlers.StandardCredentials.Default.TestingString, "PayPage");
-            string url = engine.Execute();
 
-            oehpChromiumBrowser.Address = url;
+            OrderIDBox.Text = Engines.OEHPParamBuilder.OrderIDRandom();
+            Engines.OEHPParamBuilder buildPost = new Engines.OEHPParamBuilder(accountTokenBox.Text, (string)TransactionTypeComboBox.SelectedItem, (string)EntryModeComboBox.SelectedItem, (string)ChargeTypeComboBox.SelectedItem, AmountBox.Text, OrderIDBox.Text, (string)AccountTypeComboBox.SelectedItem, (string)TCCComboBox.SelectedItem, CustomParametersBox.Text);
+            PostParametersBox.Text = buildPost.BuildAPost();
+
         }
+        private void SubmitPostButton_Click(object sender, RoutedEventArgs e)
+        {
+
+            Engines.OEHPEngine sendPost = new Engines.OEHPEngine(PostParametersBox.Text, (string)SubmitMethodBox.Text);
+            RenderBrowser(sendPost);
+        }
+        private void BuildAndSubmitButton_Click(object sender, RoutedEventArgs e)
+        {
+            OrderIDBox.Text = Engines.OEHPParamBuilder.OrderIDRandom(); //Create Random Order ID
+
+            Engines.OEHPParamBuilder buildPost = new Engines.OEHPParamBuilder(accountTokenBox.Text, (string)TransactionTypeComboBox.SelectedItem, (string)EntryModeComboBox.SelectedItem, (string)ChargeTypeComboBox.SelectedItem, AmountBox.Text, OrderIDBox.Text, (string)AccountTypeComboBox.SelectedItem, (string)TCCComboBox.SelectedItem, CustomParametersBox.Text);
+            PostParametersBox.Text = buildPost.BuildAPost(); //Builds Post Parameters
+
+
+            Engines.OEHPEngine sendPost = new Engines.OEHPEngine(PostParametersBox.Text, getSubmitMethodToUse()); //Creates Object for sending the post.
+            RenderBrowser(sendPost); //Calls Render Browser that Executes Object function and sends post to OEHP, then Renders the response (Either a Paypage, rawResponse, or an error)
+
+        }
+        #endregion
         #region UI - Combo Box Manipulation Logic.
         private void TransactionTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -251,7 +462,10 @@ namespace IntegrationsTester
             }
             catch (Exception ex)
             {
-                //Implement Logging
+                using (var n = new GeneralFunctions.Logging(ex.ToString()))
+                {
+                    n.WriteLog();
+                }
             }
         }
         private void CreditTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -273,7 +487,10 @@ namespace IntegrationsTester
             }
             catch (Exception ex)
             {
-                //Implement Logging
+                using (var n = new GeneralFunctions.Logging(ex.ToString()))
+                {
+                    n.WriteLog();
+                }
             }
         }
         private void ChargeTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -314,55 +531,25 @@ namespace IntegrationsTester
             }
             catch (Exception ex)
             {
-                // Implement Logging
+                using (var n = new GeneralFunctions.Logging(ex.ToString()))
+                {
+                    n.WriteLog();
+                }
             }
         }
         #endregion
-        
-
-        private void accountTokenBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-
-        }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
+        #region UI - MenuBar Interaction
         private void SettingsMenuItem_Click(object sender, RoutedEventArgs e)
         {
             SettingsWindow sw = new SettingsWindow();
             sw.ShowDialog();
         }
+        #endregion
+               
 
-        private void BuildPostButton_Click(object sender, RoutedEventArgs e)
+        private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
         {
-            //Not Fully Implemented!
-            OrderIDBox.Text = Engines.OEHPParamBuilder.OrderIDRandom();
-            Engines.OEHPParamBuilder buildPost = new Engines.OEHPParamBuilder(accountTokenBox.Text, (string)TransactionTypeComboBox.SelectedItem, (string)EntryModeComboBox.SelectedItem, (string)ChargeTypeComboBox.SelectedItem, AmountBox.Text, OrderIDBox.Text, (string)AccountTypeComboBox.SelectedItem, (string)TCCComboBox.SelectedItem, CustomParametersBox.Text);
-            PostParametersBox.Text = buildPost.BuildAPost();
-
-        }
-
-        private void SubmitPostButton_Click(object sender, RoutedEventArgs e)
-        {
-            
-            Engines.OEHPEngine sendPost = new Engines.OEHPEngine(PostParametersBox.Text, (string)SubmitMethodBox.Text);
-            RenderBrowser(sendPost);
-        }
-
-        private void BuildAndSubmitButton_Click(object sender, RoutedEventArgs e)
-        {
-            OrderIDBox.Text = Engines.OEHPParamBuilder.OrderIDRandom(); //Create Random Order ID
-
-            Engines.OEHPParamBuilder buildPost = new Engines.OEHPParamBuilder(accountTokenBox.Text, (string)TransactionTypeComboBox.SelectedItem, (string)EntryModeComboBox.SelectedItem, (string)ChargeTypeComboBox.SelectedItem, AmountBox.Text, OrderIDBox.Text, (string)AccountTypeComboBox.SelectedItem, (string)TCCComboBox.SelectedItem, CustomParametersBox.Text);
-            PostParametersBox.Text = buildPost.BuildAPost(); //Builds Post Parameters
-
-
-            Engines.OEHPEngine sendPost = new Engines.OEHPEngine(PostParametersBox.Text, getSubmitMethodToUse());
-            RenderBrowser(sendPost);
-
+            this.Close();
         }
     }
 }

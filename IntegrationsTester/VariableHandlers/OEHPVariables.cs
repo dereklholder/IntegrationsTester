@@ -27,4 +27,11 @@ namespace IntegrationsTester.VariableHandlers
         public string actionUrl { get; set; }
         public string errorMessage { get; set; }
     }
+    public class RCMStatus
+    {
+        public string rcmStartingSignal { get; set; }
+        public string rcmFinishedSignal { get; set; }
+        public string rcmResponseCode { get; set; }
+        public string rcmResponseDescription { get; set; }
+    }
 }
