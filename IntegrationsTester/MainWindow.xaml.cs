@@ -431,6 +431,10 @@ namespace IntegrationsTester
             RenderBrowser(sendPost); //Calls Render Browser that Executes Object function and sends post to OEHP, then Renders the response (Either a Paypage, rawResponse, or an error)
 
         }
+        private void QueryStringToJsonButton_Click(object sender, RoutedEventArgs e)
+        {
+            QueryResponseBox.Text = GeneralFunctions.DataManipulation.QueryStringToJson(QueryResponseBox.Text);
+        }
         #endregion
         #region UI - Combo Box Manipulation Logic.
         private void TransactionTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -552,9 +556,6 @@ namespace IntegrationsTester
             this.Close();
         }
 
-        private void QueryStringToJsonButton_Click(object sender, RoutedEventArgs e)
-        {
-            QueryResponseBox.Text = GeneralFunctions.DataManipulation.QueryStringToJson(QueryResponseBox.Text);
-        }
+        
     }
 }
