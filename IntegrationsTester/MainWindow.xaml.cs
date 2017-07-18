@@ -551,5 +551,10 @@ namespace IntegrationsTester
         {
             this.Close();
         }
+
+        private void QueryStringToJsonButton_Click(object sender, RoutedEventArgs e)
+        {
+            QueryResponseBox.Text = GeneralFunctions.DataManipulation.QueryStringToJson(QueryResponseBox.Text);
+        }
     }
 }

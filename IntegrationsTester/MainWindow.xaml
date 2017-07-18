@@ -17,12 +17,12 @@
             </MenuItem>
             <MenuItem Header="_Options">
                 <MenuItem Header="_Presets">
-                    <MenuItem Header="_EMV Testing"/>
-                    <MenuItem Header="_Canadian Testing"/>
-                    <MenuItem Header="_Loopback Testing"/>
-                    <MenuItem Header="_FSA Testing"/>
+                    <MenuItem Header="_EMV Testing" x:Name="EMVTestingMenuItem"/>
+                    <MenuItem Header="_Canadian Testing" x:Name="CanadianTestingMenuItem"/>
+                    <MenuItem Header="_Loopback Testing" x:Name="LoopBackTestingMenuItem"/>
+                    <MenuItem Header="_FSA Testing" x:Name="FSATestingMenuItem"/>
                     <Separator />
-                    <MenuItem Header="_About Presets"/>
+                    <MenuItem Header="_About Presets" x:Name="AboutPresetsMenuItem"/>
                 </MenuItem>
                 <MenuItem Header="_Query Response Mode">
                     <MenuItem Header="_Querystring"/>
@@ -34,8 +34,8 @@
 
             </MenuItem>
             <MenuItem Header="_Help">
-                <MenuItem Header="_Guide"/>
-                <MenuItem Header="_About"/>
+                <MenuItem Header="_Guide" x:Name="GuideMenuItem"/>
+                <MenuItem Header="_About" x:Name="AboutMenuItem"/>
             </MenuItem>
         </Menu>
         <TabControl Margin="1,27,0,0">
@@ -47,7 +47,7 @@
                     <Label x:Name="queryParametersBoxLabel" Content="Query Parameters:" Margin="0,126,44,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="107"/>
                     <TextBox x:Name="QueryParametersBox" Height="100" Margin="0,152,10,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="2.527,1.43" HorizontalAlignment="Right" Width="141"/>
                     <Label x:Name="rcmStatusBoxLabel" Content="RCM Status:" Margin="0,257,77,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="74"/>
-                    <TextBox x:Name="RCMStatusBox" Height="157" Margin="0,288,10,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Right" Width="141"/>
+                    <TextBox x:Name="RCMStatusBox" Margin="0,288,10,0" TextWrapping="Wrap" HorizontalAlignment="Right" Width="141" Height="157" VerticalAlignment="Top"/>
                     <Grid Margin="10,52,156,300" Name="OEHPComboBoxenAndLabels">
                         <ComboBox x:Name="TransactionTypeComboBox" Margin="0,26,0,0" SelectionChanged="TransactionTypeComboBox_SelectionChanged" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="111"/>
                         <Label x:Name="TransactionTypeLabel" Content="Transaction Type:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
@@ -62,7 +62,7 @@
                         <ComboBox x:Name="CreditTypeComboBox" HorizontalAlignment="Left" Margin="439,26,0,0" VerticalAlignment="Top" Width="111" Height="26" SelectionChanged="CreditTypeComboBox_SelectionChanged"/>
                         <ComboBox x:Name="TCCComboBox" HorizontalAlignment="Left" Margin="555,26,0,0" VerticalAlignment="Top" Width="160" Height="26"/>
                     </Grid>
-                    <TextBox x:Name="accountTokenBox" HorizontalAlignment="Left" Height="23" Margin="10,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="558" Text="{Binding Source={x:Static variableHandlers:StandardCredentials.Default}, Path=ActiveAccountToken}"/>
+                    <TextBox x:Name="accountTokenBox" HorizontalAlignment="Left" Height="23" Margin="10,24,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="554" Text="{Binding Source={x:Static variableHandlers:StandardCredentials.Default}, Path=ActiveAccountToken}"/>
                     <Label x:Name="AccountTokenLabel" Content="Account Token:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="AmountBoxLabel" Content="Amount:" HorizontalAlignment="Left" Margin="10,109,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="OrderIDLabel" Content="Order ID:" HorizontalAlignment="Left" Margin="107,109,0,0" VerticalAlignment="Top"/>
@@ -79,6 +79,7 @@
                     <Button x:Name="SubmitPostButton" Content="Submit Post" HorizontalAlignment="Left" Margin="90,220,0,0" VerticalAlignment="Top" Width="75" Click="SubmitPostButton_Click"/>
                     <TextBox x:Name="QueryResponseBox" Margin="455,273,169,10" TextWrapping="Wrap"/>
                     <Label x:Name="QueryResponseBoxLabel" Content="Query Response:" HorizontalAlignment="Left" Margin="455,242,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="QueryStringToJsonButton" Content="QueryString to Json" HorizontalAlignment="Left" Margin="559,246,0,0" VerticalAlignment="Top" Width="163" Click="QueryStringToJsonButton_Click"/>
                 </Grid>
             </TabItem>
             <TabItem Header="OEHP MPD">

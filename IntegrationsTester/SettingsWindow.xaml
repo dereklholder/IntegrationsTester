@@ -9,14 +9,15 @@
         Title="Settings" Height="251.678" Width="493.96" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
     <Grid>
         <Label x:Name="EnvironmentLabel" Content="Environment:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-        <ComboBox HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="80" SelectionChanged="ComboBox_SelectionChanged">
-            <ComboBoxItem Content="TEST" Name="TEST"/>
-            <ComboBoxItem Content="LIVE" Name="LIVE"/>
+        <ComboBox HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="80" x:Name="EnvironmentComboBox" SelectionChanged="EnvironmentComboBox_SelectionChanged">
+            
+            <ComboBoxItem Content="LIVE" x:Name="LIVE"/>
+            <ComboBoxItem Content="TEST" x:Name="TEST"/>
         </ComboBox>
         <Label x:Name="DuplicateModeLabel" Content="Duplicate Mode:" HorizontalAlignment="Left" Margin="95,10,0,0" VerticalAlignment="Top"/>
-        <ComboBox HorizontalAlignment="Left" Margin="95,36,0,0" VerticalAlignment="Top" Width="120">
-            <ComboBoxItem Content="Checking On" Name="CHECK"/>
-            <ComboBoxItem Content="Checking Off" Name="NO_CHECK"/>
+        <ComboBox HorizontalAlignment="Left" Margin="95,36,0,0" VerticalAlignment="Top" Width="120" x:Name="DuplicateModeComboBox" SelectedIndex="0">
+            <ComboBoxItem Content="Checking On" x:Name="CHECK"/>
+            <ComboBoxItem Content="Checking Off" x:Name="NO_CHECK"/>
         </ComboBox>
         <Button x:Name="SaveButton" Content="Save" HorizontalAlignment="Left" Margin="10,197,0,0" VerticalAlignment="Top" Width="75" Click="SaveButton_Click" IsDefault="True"/>
         <Label x:Name="CustomCredentialsLabel" Content="Custom Credentials:" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top"/>

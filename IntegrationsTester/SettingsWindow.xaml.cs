@@ -22,21 +22,56 @@ namespace IntegrationsTester
         public SettingsWindow()
         {
             InitializeComponent();
+            setComboBoxOnLoad();
         }
-
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void setComboBoxOnLoad()
         {
-            
+            if (VariableHandlers.Globals.Default.Environment == "LIVE")
+            {
+                EnvironmentComboBox.SelectedIndex = 0;
+            }
+            if (VariableHandlers.Globals.Default.Environment == "TEST")
+            {
+                EnvironmentComboBox.SelectedIndex = 1;
+            }
+            if (VariableHandlers.Globals.Default.DuplicateMode == "CHECK")
+            {
+                DuplicateModeComboBox.SelectedIndex = 0;
+            }
+            if (VariableHandlers.Globals.Default.DuplicateMode == "NO_CHECK")
+            {
+                DuplicateModeComboBox.SelectedIndex = 1;
+            }
         }
-
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
-
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
+            if (((ComboBoxItem)EnvironmentComboBox.SelectedItem).Name == "LIVE")
+            {
+                VariableHandlers.Globals.Default.Environment = "LIVE";
+            }
+            if (((ComboBoxItem)EnvironmentComboBox.SelectedItem).Name == "TEST")
+            {
+                VariableHandlers.Globals.Default.Environment = "TEST";
+            }
+            if (((ComboBoxItem)DuplicateModeComboBox.SelectedItem).Name == "CHECK")
+            {
+                VariableHandlers.Globals.Default.DuplicateMode = "CHECK";
+            }
+            if (((ComboBoxItem)DuplicateModeComboBox.SelectedItem).Name == "NO_CHECK")
+            {
+                VariableHandlers.Globals.Default.DuplicateMode = "NO_CHECK";
+            }
+            VariableHandlers.Globals.Default.Save();
+            this.Close();
+        }
 
+        private void EnvironmentComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
         }
     }
 }
