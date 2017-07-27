@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationsTester", "IntegrationsTester\IntegrationsTester.csproj", "{59E20A2A-82C9-46B5-8BEF-46B0E8CAE328}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "IntegrationsTesterInstaller", "IntegrationsTesterInstaller\IntegrationsTesterInstaller.vdproj", "{733EE108-68AC-4118-B056-693E7D0CCDF7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{59E20A2A-82C9-46B5-8BEF-46B0E8CAE328}.Release|Any CPU.Build.0 = Release|Any CPU
 		{59E20A2A-82C9-46B5-8BEF-46B0E8CAE328}.Release|x86.ActiveCfg = Release|x86
 		{59E20A2A-82C9-46B5-8BEF-46B0E8CAE328}.Release|x86.Build.0 = Release|x86
+		{733EE108-68AC-4118-B056-693E7D0CCDF7}.Debug|Any CPU.ActiveCfg = Debug
+		{733EE108-68AC-4118-B056-693E7D0CCDF7}.Debug|x86.ActiveCfg = Debug
+		{733EE108-68AC-4118-B056-693E7D0CCDF7}.Release|Any CPU.ActiveCfg = Release
+		{733EE108-68AC-4118-B056-693E7D0CCDF7}.Release|x86.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -9,6 +9,7 @@ using System.Web;
 using Newtonsoft.Json;
 using System.IO;
 using System.Windows.Media.Imaging;
+using System.Xml;
 
 namespace IntegrationsTester.GeneralFunctions
 {
@@ -35,6 +36,21 @@ namespace IntegrationsTester.GeneralFunctions
                 }
                 return null;
             }
+        }
+        public static string GetSignatureBase64FromXml(string xml)
+        {
+            string parsedData = null;
+            using (XmlTextReader xr = new XmlTextReader(new StringReader(xml)))
+            {
+                while (xr.Read())
+                {
+                    while (xr.ReadToFollowing("SIGNATUREIMAGE"))
+                    {
+                        parsedData = xr.ReadInnerXml();
+                    }
+                }
+            }
+            return parsedData;
         }
         public static string QueryStringToJson(string queryString)
         {

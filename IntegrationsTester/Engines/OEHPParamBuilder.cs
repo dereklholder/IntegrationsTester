@@ -32,7 +32,7 @@ namespace IntegrationsTester.Engines
         /// <param name="custom_parameters">Any Additional Parameters sent, must be in NVP format</param>
         public OEHPParamBuilder(string account_token, string transaction_type, string entry_mode, string charge_type, string charge_total, string order_id, string account_type, string transaction_condition_code, string custom_parameters)
         {
-            _accountToken = account_token;
+            GetAccountTokenToUse(); //Determines what account token is to be used.
             _transactionType = transaction_type;
             _chargeType = charge_type;
             _chargeTotal = charge_total;
@@ -52,6 +52,32 @@ namespace IntegrationsTester.Engines
             }
 
         }
+        private void GetAccountTokenToUse()
+        {
+            if (VariableHandlers.Globals.Default.UsePresets == true)
+            {
+                switch (VariableHandlers.Globals.Default.CredentialsToUse)
+                {
+                    case "US":
+                        _accountToken = VariableHandlers.StandardCredentials.Default.AccountToken;
+                        break;
+                    case "CA":
+                        _accountToken = VariableHandlers.CanadianCredentials.Default.AccountToken;
+                        break;
+                    case "LOOPBACK":
+                        _accountToken = VariableHandlers.LoopbackCredentials.Default.AccountToken;
+                        break;
+                    case "FSA":
+                        throw new InvalidOperationException("FSA not Supported on OEHP");
+                    default:
+                        throw new InvalidOperationException("Invalid Preset Selected");
+                }
+            }
+            else
+            {
+                _accountToken = VariableHandlers.StandardCredentials.Default.ActiveAccountToken;
+            }
+        }
         public string BuildAPost()
         {
             try
@@ -66,6 +92,8 @@ namespace IntegrationsTester.Engines
                         return ACHParamBuilder();
                     case "CREDIT_DEBIT_CARD":
                         return CreditParamBuilder();
+                    case "BATCH":
+                        return BatchParambuilder();
                     default:
                         throw new InvalidOperationException("Invalid Transaction Type");
                 }
@@ -78,6 +106,14 @@ namespace IntegrationsTester.Engines
                 }
                 return ex.ToString();
             }
+        }
+        private string BatchParambuilder()
+        {
+            StringBuilder parameters = new StringBuilder();
+            parameters.Append("account_token=" + _accountToken
+                                + "&transaction_type=" + _transactionType
+                                + "&charge_type=" + _chargeType);
+            return parameters.ToString();
         }
         private string DebitParamBuilder()
         {
@@ -111,7 +147,7 @@ namespace IntegrationsTester.Engines
         private string ACHParamBuilder()
         {
             StringBuilder parameters = new StringBuilder();
-            parameters.Append("account_tken=" + _accountToken
+            parameters.Append("account_token=" + _accountToken
                                 + "&transaction_type=" + _transactionType
                                 + "&entry_mode=" + _entryMode
                                 + "&charge_type=" + _chargeType

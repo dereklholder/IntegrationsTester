@@ -32,6 +32,21 @@ namespace IntegrationsTester.VariableHandlers
             values.Add("CREDIT_DEBIT_CARD");
             values.Add("ACH");
             values.Add("INTERAC");
+            values.Add("BATCH");
+            return values;
+        }
+        public static ObservableCollection<string> EdgeExpressModeValues()
+        {
+            ObservableCollection<string> values = new ObservableCollection<string>();
+            values.Add("PC");
+            values.Add("Cloud");
+            return values;
+        }
+        public static ObservableCollection<string> EdgeExpressCountryValues()
+        {
+            ObservableCollection<string> values = new ObservableCollection<string>();
+            values.Add("US");
+            values.Add("CA");
             return values;
         }
         public static ObservableCollection<string> TCCValues()
@@ -78,6 +93,12 @@ namespace IntegrationsTester.VariableHandlers
             values.Add("CREDIT");
             values.Add("VOID");
             values.Add("QUERY");
+            return values;
+        }
+        public static ObservableCollection<string> BatchChargeTypeValues()
+        {
+            ObservableCollection<string> values = new ObservableCollection<string>();
+            values.Add("SETTLE");
             return values;
         }
         public static ObservableCollection<string> AccountTypeValues()

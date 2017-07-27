@@ -12,7 +12,7 @@ namespace IntegrationsTester.VariableHandlers {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.0.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.1.0.0")]
     internal sealed partial class CanadianCredentials : global::System.Configuration.ApplicationSettingsBase {
         
         private static CanadianCredentials defaultInstance = ((CanadianCredentials)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new CanadianCredentials())));
@@ -25,7 +25,7 @@ namespace IntegrationsTester.VariableHandlers {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("800000001892")]
         public string XWebIDCredit {
             get {
                 return ((string)(this["XWebIDCredit"]));
@@ -37,7 +37,7 @@ namespace IntegrationsTester.VariableHandlers {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("6lm2JTrHoBWldO6eaoRnqDBZVXDgKAG1")]
         public string XWebAuthKeyCredit {
             get {
                 return ((string)(this["XWebAuthKeyCredit"]));
@@ -49,7 +49,7 @@ namespace IntegrationsTester.VariableHandlers {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("80022813")]
         public string XWebTerminalIDCredit {
             get {
                 return ((string)(this["XWebTerminalIDCredit"]));
@@ -61,7 +61,7 @@ namespace IntegrationsTester.VariableHandlers {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("800000001892")]
         public string XWebIDDebit {
             get {
                 return ((string)(this["XWebIDDebit"]));
@@ -73,7 +73,7 @@ namespace IntegrationsTester.VariableHandlers {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("FCChfQrLpCi429zQLvPh1OYbWaZFo56f")]
         public string XWebAuthKeyDebit {
             get {
                 return ((string)(this["XWebAuthKeyDebit"]));
@@ -85,7 +85,7 @@ namespace IntegrationsTester.VariableHandlers {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("80022803")]
         public string XWebTerminalIDDebit {
             get {
                 return ((string)(this["XWebTerminalIDDebit"]));
@@ -97,7 +97,8 @@ namespace IntegrationsTester.VariableHandlers {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("2082BF6DCE67560D318DEAF98C51AC64C2CF2F9E45B3C3F7E5A24B278CDE5FEA9859BE5FF80F0EAAC" +
+            "5")]
         public string AccountToken {
             get {
                 return ((string)(this["AccountToken"]));

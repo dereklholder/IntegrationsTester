@@ -12,7 +12,7 @@ namespace IntegrationsTester.VariableHandlers {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.0.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.1.0.0")]
     internal sealed partial class LoopbackCredentials : global::System.Configuration.ApplicationSettingsBase {
         
         private static LoopbackCredentials defaultInstance = ((LoopbackCredentials)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new LoopbackCredentials())));
@@ -25,7 +25,7 @@ namespace IntegrationsTester.VariableHandlers {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("800000002159")]
         public string XWebID {
             get {
                 return ((string)(this["XWebID"]));
@@ -37,7 +37,7 @@ namespace IntegrationsTester.VariableHandlers {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("KrXyNgtPxaFftEHgXqiQOIiI7NgThyMB")]
         public string XWebAuthKey {
             get {
                 return ((string)(this["XWebAuthKey"]));
@@ -49,7 +49,7 @@ namespace IntegrationsTester.VariableHandlers {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("80023604")]
         public string XWebTerminalID {
             get {
                 return ((string)(this["XWebTerminalID"]));
@@ -61,7 +61,8 @@ namespace IntegrationsTester.VariableHandlers {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("3C6D0A90CE65590E308DEDFC8657AC62CDCF2B9E43B2CAFEEDA34B258CDE5FEA9B51BE5C8A78F86FF" +
+            "C")]
         public string AccountToken {
             get {
                 return ((string)(this["AccountToken"]));

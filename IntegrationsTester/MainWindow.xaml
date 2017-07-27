@@ -17,10 +17,10 @@
             </MenuItem>
             <MenuItem Header="_Options">
                 <MenuItem Header="_Presets">
-                    <MenuItem Header="_EMV Testing" x:Name="EMVTestingMenuItem"/>
-                    <MenuItem Header="_Canadian Testing" x:Name="CanadianTestingMenuItem"/>
-                    <MenuItem Header="_Loopback Testing" x:Name="LoopBackTestingMenuItem"/>
-                    <MenuItem Header="_FSA Testing" x:Name="FSATestingMenuItem"/>
+                    <MenuItem Header="_US EMV Testing" x:Name="EMVTestingMenuItem" IsCheckable="True" Click="SetPresetToUse"/>
+                    <MenuItem Header="_Canadian Testing" x:Name="CanadianTestingMenuItem" IsCheckable="True" Click="SetPresetToUse"/>
+                    <MenuItem Header="_Loopback Testing" x:Name="LoopBackTestingMenuItem" IsCheckable="True" Click="SetPresetToUse"/>
+                    <MenuItem Header="_FSA Testing" x:Name="FSATestingMenuItem" IsCheckable="True" Click="SetPresetToUse"/>
                     <Separator />
                     <MenuItem Header="_About Presets" x:Name="AboutPresetsMenuItem"/>
                 </MenuItem>
@@ -42,12 +42,12 @@
             <TabItem Header="OEHP" Background="#DDDFFF">
                 <Grid Background="#DDDFFF">
                     <cefsharp:ChromiumWebBrowser Grid.Row="0" Name="oehpChromiumBrowser" Address="" Margin="10,273,0,10" Background="Black" BorderThickness="0" HorizontalAlignment="Left" Width="440" FrameLoadEnd="oehpChromiumBrowser_FrameLoadEnd"  />
-                    <TextBox x:Name="PostParametersBox" Height="100" Margin="0,26,10,0" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Right" Width="141"/>
-                    <Label x:Name="postParamatersBoxLabel" Content="Post Parameters:" Margin="0,0,43,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="98"/>
-                    <Label x:Name="queryParametersBoxLabel" Content="Query Parameters:" Margin="0,126,44,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="107"/>
-                    <TextBox x:Name="QueryParametersBox" Height="100" Margin="0,152,10,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="2.527,1.43" HorizontalAlignment="Right" Width="141"/>
+                    <TextBox x:Name="PostParametersBox" Height="100" Margin="740,26,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                    <Label x:Name="postParamatersBoxLabel" Content="Post Parameters:" Margin="750,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="98"/>
+                    <Label x:Name="queryParametersBoxLabel" Content="Query Parameters:" Margin="740,126,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="107"/>
+                    <TextBox x:Name="QueryParametersBox" Height="100" Margin="740,152,10,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="2.527,1.43"/>
                     <Label x:Name="rcmStatusBoxLabel" Content="RCM Status:" Margin="0,257,77,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="74"/>
-                    <TextBox x:Name="RCMStatusBox" Margin="0,288,10,0" TextWrapping="Wrap" HorizontalAlignment="Right" Width="141" Height="157" VerticalAlignment="Top"/>
+                    <TextBox x:Name="RCMStatusBox" Margin="0,288,10,10" TextWrapping="Wrap" HorizontalAlignment="Right" Width="141"/>
                     <Grid Margin="10,52,156,300" Name="OEHPComboBoxenAndLabels">
                         <ComboBox x:Name="TransactionTypeComboBox" Margin="0,26,0,0" SelectionChanged="TransactionTypeComboBox_SelectionChanged" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="111"/>
                         <Label x:Name="TransactionTypeLabel" Content="Transaction Type:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
@@ -69,7 +69,7 @@
                     <TextBox x:Name="AmountBox" HorizontalAlignment="Left" Height="23" Margin="10,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="92"/>
                     <TextBox x:Name="OrderIDBox" HorizontalAlignment="Left" Height="23" Margin="107,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="131"/>
                     <Label x:Name="CustomParametersBoxLabel" Content="Custom Parameters:" HorizontalAlignment="Left" Margin="243,109,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="CustomParametersBox" HorizontalAlignment="Left" Height="100" Margin="243,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300"/>
+                    <TextBox x:Name="CustomParametersBox" HorizontalAlignment="Left" Height="100" Margin="243,135,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" TextChanged="CustomParametersBox_TextChanged"/>
                     <Label x:Name="SignatureLabel" Content="Signature:" HorizontalAlignment="Left" Margin="548,109,0,0" VerticalAlignment="Top"/>
                     <Image x:Name="SignatureImage" HorizontalAlignment="Left" Height="100" Margin="548,135,0,0" VerticalAlignment="Top" Width="160"/>
                     <Label x:Name="SubmitMethodLabel" Content="Submit Method:" HorizontalAlignment="Left" Margin="10,158,0,0" VerticalAlignment="Top"/>
@@ -77,29 +77,75 @@
                     <Button x:Name="BuildAndSubmitButton" Content="Build and Submit" HorizontalAlignment="Left" Margin="10,246,0,0" VerticalAlignment="Top" Width="155" Click="BuildAndSubmitButton_Click"/>
                     <Button x:Name="BuildPostButton" Content="Build Post" HorizontalAlignment="Left" Margin="10,219,0,0" VerticalAlignment="Top" Width="75" Click="BuildPostButton_Click"/>
                     <Button x:Name="SubmitPostButton" Content="Submit Post" HorizontalAlignment="Left" Margin="90,220,0,0" VerticalAlignment="Top" Width="75" Click="SubmitPostButton_Click"/>
-                    <TextBox x:Name="QueryResponseBox" Margin="455,273,169,10" TextWrapping="Wrap"/>
+                    <TextBox x:Name="QueryResponseBox" Margin="455,273,169,10" TextWrapping="Wrap" AcceptsReturn="True"/>
                     <Label x:Name="QueryResponseBoxLabel" Content="Query Response:" HorizontalAlignment="Left" Margin="455,242,0,0" VerticalAlignment="Top"/>
                     <Button x:Name="QueryStringToJsonButton" Content="QueryString to Json" HorizontalAlignment="Left" Margin="559,246,0,0" VerticalAlignment="Top" Width="163" Click="QueryStringToJsonButton_Click"/>
+                    <CheckBox x:Name="UsePresetsOEHP" HorizontalAlignment="Left" Margin="107,5,0,0" VerticalAlignment="Top" Content="Use Presets" Click="UsePresetsOEHP_Checked" IsChecked="{Binding Source={x:Static variableHandlers:Globals.Default}, Path=UsePresets}"/>
                 </Grid>
             </TabItem>
             <TabItem Header="OEHP MPD">
+                <Grid>
+                    <Label Content="NYI" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+
+                </Grid>
 
             </TabItem>
-            <TabItem Header="EdgeExpress">
-                <Grid Background="#FFE5E5E5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="95*"/>
-                    </Grid.ColumnDefinitions>
+            <TabItem Header="EdgeExpress" Background="#9CC568">
+                <Grid Background="#9CC568">
+                    <Label Content="Amount:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="EdgeExpressAmountBox" HorizontalAlignment="Left" Height="23" Margin="10,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding Source={x:Static variableHandlers:StandardCredentials.Default}, Path=CurrentAmount}"/>
+                    <TextBox x:Name="EdgeExpressParameters" HorizontalAlignment="Left" Margin="10,284,0,10" TextWrapping="Wrap" AcceptsReturn="True" Width="309" Text="{Binding Source={x:Static variableHandlers:StandardCredentials.Default}, Path=EdgeExpressParameters}"/>
+                    <Label x:Name="EdgeExpressRequestLabel" Content="Request:" HorizontalAlignment="Left" Margin="10,258,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="EdgeExpressModeLabel" Content="Mode:" HorizontalAlignment="Left" Margin="141,10,0,0" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="EdgeExpressModeComboBox" HorizontalAlignment="Left" Margin="141,41,0,0" VerticalAlignment="Top" Width="120" Height="26"/>
+                    <ComboBox x:Name="EdgeExpressSubmitMethodComboBox" HorizontalAlignment="Left" Margin="266,41,0,0" VerticalAlignment="Top" Width="120" SelectionChanged="EdgeExpressSubmitMethodComboBox_SelectionChanged" Height="26">
+                        <ComboBoxItem x:Name="SimpleButtons" Content="Simple Buttons"/>
+                        <ComboBoxItem x:Name="RawParameters" Content="Raw Parameters"/>
+                    </ComboBox>
+                    <Label x:Name="EdgeExpressSubmitMethodLabel" Content="Submit Method:" HorizontalAlignment="Left" Margin="270,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.083,-0.995"/>
+                    <TextBox x:Name="EdgeExpressResponseBox" HorizontalAlignment="Left" Margin="324,284,0,10" TextWrapping="Wrap" Width="389" AcceptsReturn="True"/>
+                    <Label x:Name="EdgeExpressResponseLabel" Content="Response:" HorizontalAlignment="Left" Margin="324,253,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.279,0.385"/>
+                    <Button x:Name="EdgeExpressSubmitButton" Content="Submit" HorizontalAlignment="Left" Margin="10,236,0,0" VerticalAlignment="Top" Width="75" Click="EdgeExpressSubmitButton_Click"/>
+                    <Grid x:Name="EdgeExpressSimpleButtonGrid"  Margin="10,80,429,243" Visibility="Hidden">
+                        <Button x:Name="EdgeExpressSaleButton" Content="Sale" HorizontalAlignment="Left" Margin="0,31,0,0" VerticalAlignment="Top" Width="95" Height="22" Click="EdgeExpressSaleButton_Click"/>
+                        <Label x:Name="EdgeExpressSimpleButtonsLabel" Content="Transactions:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <Button x:Name="EdgeExpressCreditSaleButton" Content="Credit Sale" HorizontalAlignment="Left" Margin="0,58,0,0" VerticalAlignment="Top" Width="95" Click="EdgeExpressCreditSaleButton_Click"/>
+                        <Button x:Name="EdgeExpressDebitPurchase" Content="Debit Sale" HorizontalAlignment="Left" Margin="0,85,0,0" VerticalAlignment="Top" Width="95" Click="EdgeExpressDebitPurchase_Click"/>
+                        <Button x:Name="EdgeExpressDebitReturnButton" Content="Debit Return" HorizontalAlignment="Left" Margin="100,85,0,0" VerticalAlignment="Top" Width="92" RenderTransformOrigin="0.544,0.804" Click="EdgeExpressDebitReturnButton_Click"/>
+                        <Button x:Name="EdgeExpressCreditReturn" Content="Credit Return" HorizontalAlignment="Left" Margin="100,58,0,0" VerticalAlignment="Top" Width="92" Click="EdgeExpressCreditReturn_Click"/>
+                        <Button x:Name="EdgeExpressSignatureButton" Content="Signature" HorizontalAlignment="Left" Margin="357,31,0,0" VerticalAlignment="Top" Width="75" Click="EdgeExpressSignatureButton_Click"/>
+                        <Button x:Name="EdgeExpressACHSaleButton" Content="ACH Sale" HorizontalAlignment="Left" Margin="197,31,0,0" VerticalAlignment="Top" Width="75"/>
+                        <Button x:Name="EdgeExpressACHCreditButton" Content="ACH Credit" HorizontalAlignment="Left" Margin="277,31,0,0" VerticalAlignment="Top" Width="75"/>
+
+                    </Grid>
+                    <Label x:Name="EdgeExpressCountryLabel" Content="Country:" HorizontalAlignment="Left" Margin="391,10,0,0" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="EdgeExpressCountryComboBox" HorizontalAlignment="Left" Margin="391,41,0,0" VerticalAlignment="Top" Width="120" Height="26" SelectionChanged="EdgeExpressCountryComboBox_SelectionChanged"/>
+                    <Label x:Name="EdgeExpressSignatureLabel" Content="Signature:" HorizontalAlignment="Left" Margin="713,258,0,0" VerticalAlignment="Top"/>
+                    <Image x:Name="EdgeExpressSignature" HorizontalAlignment="Left" Height="161" Margin="713,284,0,0" VerticalAlignment="Top" Width="168"/>
+
                 </Grid>
             </TabItem>
             <TabItem Header="Direct To Gateway">
+                <Grid>
+                    <TextBox x:Name="DtGRequestBox" HorizontalAlignment="Left" Height="293" Margin="10,152,0,0" VerticalAlignment="Top" Width="300" AcceptsReturn="True"/>
+                    <Label x:Name="DtGRequestLabel" Content="Request:" HorizontalAlignment="Left" Margin="10,121,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="DtGResponseBox" HorizontalAlignment="Left" Height="293" Margin="315,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" AcceptsReturn="True"/>
+                    <Label x:Name="DtGResponseLabel" Content="Response:" HorizontalAlignment="Left" Margin="315,121,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="DtGSubmitButton" Content="Submit" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top" Width="75" Click="DtGSubmitButton_Click"/>
+                </Grid>
 
             </TabItem>
             <TabItem Header="EdgeLink">
+                <Grid>
+                    <Label Content="NYI" HorizontalAlignment="Left" Margin="137,93,0,0" VerticalAlignment="Top"/>
+
+                </Grid>
 
             </TabItem>
             <TabItem Header="HPF">
+                <Grid>
+                    <Label>NYI</Label>
+                </Grid>
 
             </TabItem>
         </TabControl>

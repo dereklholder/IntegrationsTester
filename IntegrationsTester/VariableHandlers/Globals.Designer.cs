@@ -46,5 +46,29 @@ namespace IntegrationsTester.VariableHandlers {
                 this["DuplicateMode"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("US")]
+        public string CredentialsToUse {
+            get {
+                return ((string)(this["CredentialsToUse"]));
+            }
+            set {
+                this["CredentialsToUse"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UsePresets {
+            get {
+                return ((bool)(this["UsePresets"]));
+            }
+            set {
+                this["UsePresets"] = value;
+            }
+        }
     }
 }

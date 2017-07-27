@@ -25,7 +25,7 @@ namespace IntegrationsTester.VariableHandlers {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("800000001844")]
         public string XWebID {
             get {
                 return ((string)(this["XWebID"]));
@@ -37,7 +37,7 @@ namespace IntegrationsTester.VariableHandlers {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("WFiNd0nMIsejrWVUSycsmbtgkMN7hELK")]
         public string XWebAuthKey {
             get {
                 return ((string)(this["XWebAuthKey"]));
@@ -49,7 +49,7 @@ namespace IntegrationsTester.VariableHandlers {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("80023396")]
         public string XWebTerminalID {
             get {
                 return ((string)(this["XWebTerminalID"]));
@@ -102,7 +102,7 @@ namespace IntegrationsTester.VariableHandlers {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("800000001844")]
         public string ActiveXWebID {
             get {
                 return ((string)(this["ActiveXWebID"]));
@@ -114,7 +114,7 @@ namespace IntegrationsTester.VariableHandlers {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("WFiNd0nMIsejrWVUSycsmbtgkMN7hELK")]
         public string ActiveXWebAuthKey {
             get {
                 return ((string)(this["ActiveXWebAuthKey"]));
@@ -126,13 +126,61 @@ namespace IntegrationsTester.VariableHandlers {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("80023396")]
         public string ActiveXWebTerminalID {
             get {
                 return ((string)(this["ActiveXWebTerminalID"]));
             }
             set {
                 this["ActiveXWebTerminalID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string EdgeExpressParameters {
+            get {
+                return ((string)(this["EdgeExpressParameters"]));
+            }
+            set {
+                this["EdgeExpressParameters"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CurrentAmount {
+            get {
+                return ((string)(this["CurrentAmount"]));
+            }
+            set {
+                this["CurrentAmount"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string Country {
+            get {
+                return ((string)(this["Country"]));
+            }
+            set {
+                this["Country"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string CurrentTerminalID {
+            get {
+                return ((string)(this["CurrentTerminalID"]));
+            }
+            set {
+                this["CurrentTerminalID"] = value;
             }
         }
     }

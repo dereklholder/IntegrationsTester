@@ -28,6 +28,24 @@ namespace IntegrationsTester
             SetCommonCollections();
          
         }
+        #region EdgeExpressProcessingMethods
+        private void EdgeExpressTransaction(string transactionType)
+        {
+            try
+            {
+                StandardCredentials.Default.EdgeExpressParameters = new Engines.EdgeExpressParamBuilder(transactionType).BuildFinancialTransactionRequest();
+                EdgeExpressResponseBox.Text = new Engines.EdgeExpressEngine(StandardCredentials.Default.EdgeExpressParameters, (string)EdgeExpressModeComboBox.SelectedItem).SendToEdgeExpress();
+            }
+            catch (Exception ex)
+            {
+                using (var n = new GeneralFunctions.Logging(ex.ToString()))
+                {
+                    n.WriteLog();
+                }
+            }
+        }
+
+#endregion
         #region OEHP Processing Methods
         private string _html; //Variable Used to keep Scraped HTML and keep it in scope of all the methods that need to access it
         private string _sessionToken; //Keep sesssion token in scope of all methods that need to access it
@@ -73,6 +91,7 @@ namespace IntegrationsTester
         {
             Engines.OEHPParamBuilder buildPost = new Engines.OEHPParamBuilder(StandardCredentials.Default.ActiveAccountToken, (string)TransactionTypeComboBox.SelectedItem, "KEYED", "QUERY", "", OrderIDBox.Text, "", "", "&full_detail_flag=true");
             string queryParameters = buildPost.BuildAPost();
+            QueryParametersBox.Text = queryParameters;
             Engines.OEHPEngine sendPost = new Engines.OEHPEngine(queryParameters, "DirectPost");
 
             string response = sendPost.Execute();
@@ -80,7 +99,7 @@ namespace IntegrationsTester
             return response;
 
         }
-        private string getSubmitMethodToUse()
+        private string getSubmitMethodToUse() //Gets what Submit method to use By checking Transaction Type.
         {
             switch ((string)ChargeTypeComboBox.SelectedItem)
             {
@@ -118,6 +137,8 @@ namespace IntegrationsTester
                 case "REFUND":
                     return "PayPage";
                 case "QUERY":
+                    return "DirectPost";
+                case "SETTLE":
                     return "DirectPost";
                 default:
                     return null;
@@ -295,6 +316,8 @@ namespace IntegrationsTester
             TCCComboBox.ItemsSource = UICollections.TCCValues();
             AccountTypeComboBox.ItemsSource = UICollections.AccountTypeValues();
             CreditTypeComboBox.ItemsSource = UICollections.CreditTypeValues();
+            EdgeExpressModeComboBox.ItemsSource = UICollections.EdgeExpressModeValues();
+            EdgeExpressCountryComboBox.ItemsSource = UICollections.EdgeExpressCountryValues();
         }
         public void SetCreditCardUICollections()
         {
@@ -308,6 +331,30 @@ namespace IntegrationsTester
             CreditTypeLabel.Visibility = Visibility.Hidden;
             TCCComboBox.Visibility = Visibility.Hidden;
             TCCLabel.Visibility = Visibility.Hidden;
+            EntryModeComboBox.Visibility = Visibility.Visible;
+            EntryModeLabel.Visibility = Visibility.Visible;
+            //Approval Code box for Force Sale....
+            EntryModeComboBox.SelectedIndex = 0;
+            ChargeTypeComboBox.SelectedIndex = 0;
+
+            CreditTypeComboBox.SelectedIndex = -1;
+            TCCComboBox.SelectedIndex = -1;
+        }
+        public void SetBatchUICollections()
+        {
+            //Set Charge Type and Entry mode Combo Boxen.;;
+            ChargeTypeComboBox.ItemsSource = UICollections.BatchChargeTypeValues();
+            EntryModeComboBox.ItemsSource = UICollections.CreditEntryModeValues();
+
+            AccountTypeLabel.Visibility = Visibility.Hidden;
+            AccountTypeComboBox.Visibility = Visibility.Hidden;
+            CreditTypeComboBox.Visibility = Visibility.Hidden;
+            CreditTypeLabel.Visibility = Visibility.Hidden;
+            TCCComboBox.Visibility = Visibility.Hidden;
+            TCCLabel.Visibility = Visibility.Hidden;
+            EntryModeComboBox.Visibility = Visibility.Hidden;
+            EntryModeLabel.Visibility = Visibility.Hidden;
+
             //Approval Code box for Force Sale....
             EntryModeComboBox.SelectedIndex = 0;
             ChargeTypeComboBox.SelectedIndex = 0;
@@ -323,6 +370,8 @@ namespace IntegrationsTester
 
             AccountTypeLabel.Visibility = Visibility.Visible;
             AccountTypeComboBox.Visibility = Visibility.Visible;
+            EntryModeComboBox.Visibility = Visibility.Visible;
+            EntryModeLabel.Visibility = Visibility.Visible;
 
             CreditTypeComboBox.Visibility = Visibility.Hidden;
             CreditTypeLabel.Visibility = Visibility.Hidden;
@@ -340,6 +389,9 @@ namespace IntegrationsTester
         {
             ChargeTypeComboBox.ItemsSource = UICollections.ACHChargeTypeValues();
             EntryModeComboBox.ItemsSource = UICollections.ACHEntryModeValues();
+
+            EntryModeComboBox.Visibility = Visibility.Visible;
+            EntryModeLabel.Visibility = Visibility.Visible;
 
             AccountTypeComboBox.Visibility = Visibility.Hidden;
             AccountTypeLabel.Visibility = Visibility.Hidden;
@@ -364,6 +416,9 @@ namespace IntegrationsTester
 
             AccountTypeComboBox.Visibility = Visibility.Visible;
             AccountTypeLabel.Visibility = Visibility.Visible;
+            EntryModeComboBox.Visibility = Visibility.Visible;
+            EntryModeLabel.Visibility = Visibility.Visible;
+
             CreditTypeLabel.Visibility = Visibility.Hidden;
             CreditTypeComboBox.Visibility = Visibility.Hidden;
             TCCComboBox.Visibility = Visibility.Hidden;
@@ -405,6 +460,18 @@ namespace IntegrationsTester
         }
         #endregion
         #region UI - OEHP Button Interaction
+        private void UsePresetsOEHP_Checked(object sender, RoutedEventArgs e)
+        {
+            if (UsePresetsOEHP.IsChecked == true)
+            {
+                accountTokenBox.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                accountTokenBox.Visibility = Visibility.Visible;
+            }
+
+        }
         private void BuildPostButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -415,28 +482,41 @@ namespace IntegrationsTester
         }
         private void SubmitPostButton_Click(object sender, RoutedEventArgs e)
         {
-
-            Engines.OEHPEngine sendPost = new Engines.OEHPEngine(PostParametersBox.Text, (string)SubmitMethodBox.Text);
-            RenderBrowser(sendPost);
+            try
+            {
+                Engines.OEHPEngine sendPost = new Engines.OEHPEngine(PostParametersBox.Text, (string)SubmitMethodBox.Text);
+                RenderBrowser(sendPost);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
         }
         private void BuildAndSubmitButton_Click(object sender, RoutedEventArgs e)
         {
-            OrderIDBox.Text = Engines.OEHPParamBuilder.OrderIDRandom(); //Create Random Order ID
+            try
+            {
+                OrderIDBox.Text = Engines.OEHPParamBuilder.OrderIDRandom(); //Create Random Order ID
 
-            Engines.OEHPParamBuilder buildPost = new Engines.OEHPParamBuilder(accountTokenBox.Text, (string)TransactionTypeComboBox.SelectedItem, (string)EntryModeComboBox.SelectedItem, (string)ChargeTypeComboBox.SelectedItem, AmountBox.Text, OrderIDBox.Text, (string)AccountTypeComboBox.SelectedItem, (string)TCCComboBox.SelectedItem, CustomParametersBox.Text);
-            PostParametersBox.Text = buildPost.BuildAPost(); //Builds Post Parameters
+                Engines.OEHPParamBuilder buildPost = new Engines.OEHPParamBuilder(accountTokenBox.Text, (string)TransactionTypeComboBox.SelectedItem, (string)EntryModeComboBox.SelectedItem, (string)ChargeTypeComboBox.SelectedItem, AmountBox.Text, OrderIDBox.Text, (string)AccountTypeComboBox.SelectedItem, (string)TCCComboBox.SelectedItem, CustomParametersBox.Text);
+                PostParametersBox.Text = buildPost.BuildAPost(); //Builds Post Parameters
 
 
-            Engines.OEHPEngine sendPost = new Engines.OEHPEngine(PostParametersBox.Text, getSubmitMethodToUse()); //Creates Object for sending the post.
-            RenderBrowser(sendPost); //Calls Render Browser that Executes Object function and sends post to OEHP, then Renders the response (Either a Paypage, rawResponse, or an error)
+                Engines.OEHPEngine sendPost = new Engines.OEHPEngine(PostParametersBox.Text, getSubmitMethodToUse()); //Creates Object for sending the post.
+                RenderBrowser(sendPost); //Calls Render Browser that Executes Object function and sends post to OEHP, then Renders the response (Either a Paypage, rawResponse, or an error)
 
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
         }
         private void QueryStringToJsonButton_Click(object sender, RoutedEventArgs e)
         {
             QueryResponseBox.Text = GeneralFunctions.DataManipulation.QueryStringToJson(QueryResponseBox.Text);
         }
         #endregion
-        #region UI - Combo Box Manipulation Logic.
+        #region UI - OEHP Combo Box Manipulation Logic.
         private void TransactionTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
@@ -459,6 +539,9 @@ namespace IntegrationsTester
                         break;
                     case "INTERAC":
                         SetDebitCardUICollections();
+                        break;
+                    case "BATCH":
+                        SetBatchUICollections();
                         break;
                     default:
                         throw new InvalidOperationException("Invalid Charge Type Selected");
@@ -548,14 +631,114 @@ namespace IntegrationsTester
             SettingsWindow sw = new SettingsWindow();
             sw.ShowDialog();
         }
-        #endregion
-               
-
         private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
+        private void SetPresetToUse(object sender, RoutedEventArgs e)
+        {
+            
+            switch (((MenuItem)sender).Name)
+            {
+                case "EMVTestingMenuItem":
+                    Globals.Default.CredentialsToUse = "US";
+                    CanadianTestingMenuItem.IsChecked = false;
+                    LoopBackTestingMenuItem.IsChecked = false;
+                    FSATestingMenuItem.IsChecked = false;
+                    break;
+                case "CanadianTestingMenuItem":
+                    Globals.Default.CredentialsToUse = "CA";
+                    EMVTestingMenuItem.IsChecked = false;
+                    LoopBackTestingMenuItem.IsChecked = false;
+                    FSATestingMenuItem.IsChecked = false;
+                    break;
+                case "LoopBackTestingMenuItem":
+                    Globals.Default.CredentialsToUse = "LOOPBACK";
+                    EMVTestingMenuItem.IsChecked = false;
+                    CanadianTestingMenuItem.IsChecked = false;
+                    FSATestingMenuItem.IsChecked = false;
+                    break;
+                case "FSATestingMenuItem":
+                    Globals.Default.CredentialsToUse = "FSA";
+                    EMVTestingMenuItem.IsChecked = false;
+                    CanadianTestingMenuItem.IsChecked = false;
+                    LoopBackTestingMenuItem.IsChecked = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+        #endregion
+        #region UI- EdgeExpress Combo Box Manipulation logic
+        private void EdgeExpressCountryComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            StandardCredentials.Default.Country = (string)EdgeExpressCountryComboBox.SelectedItem;
+        }
+        private void EdgeExpressSubmitMethodComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            switch (((ComboBoxItem)EdgeExpressSubmitMethodComboBox.SelectedItem).Name)
+            {
+                case "SimpleButtons":
+                    EdgeExpressSimpleButtonGrid.Visibility = Visibility.Visible;
+                    break;
+                case "RawParameters":
+                    EdgeExpressSimpleButtonGrid.Visibility = Visibility.Hidden;
+                    break;
+                default:
+                    throw new InvalidOperationException("Invalid Submit Method Selected");
+            }
+        }
+        #endregion
+        #region UI- EdgeExpress Button Interaction
+        private void EdgeExpressSaleButton_Click(object sender, RoutedEventArgs e)
+        {
+            EdgeExpressTransaction("SALE");
+        }
+
+        private void EdgeExpressCreditSaleButton_Click(object sender, RoutedEventArgs e)
+        {
+            EdgeExpressTransaction("CREDITSALE");
+        }
+
+        private void EdgeExpressCreditReturn_Click(object sender, RoutedEventArgs e)
+        {
+            EdgeExpressTransaction("CREDITRETURN");
+        }
+
+        private void EdgeExpressDebitPurchase_Click(object sender, RoutedEventArgs e)
+        {
+            EdgeExpressTransaction("DEBITSALE");
+        }
+
+        private void EdgeExpressDebitReturnButton_Click(object sender, RoutedEventArgs e)
+        {
+            EdgeExpressTransaction("DEBITRETURN");
+        }
+        private void EdgeExpressSubmitButton_Click(object sender, RoutedEventArgs e)
+        {
+            EdgeExpressResponseBox.Text = new Engines.EdgeExpressEngine(EdgeExpressParameters.Text, (string)EdgeExpressModeComboBox.SelectedItem).SendToEdgeExpress();
+        }
+        private void EdgeExpressSignatureButton_Click(object sender, RoutedEventArgs e)
+        {
+            StandardCredentials.Default.EdgeExpressParameters = new Engines.EdgeExpressParamBuilder("SIGNATURE").BuildNonFinancialTransactionRequest();
+            string base64String = GeneralFunctions.DataManipulation.GetSignatureBase64FromXml(new Engines.EdgeExpressEngine(StandardCredentials.Default.EdgeExpressParameters, (string)EdgeExpressModeComboBox.SelectedItem).SendToEdgeExpress());
+
+            EdgeExpressSignature.Source = GeneralFunctions.DataManipulation.DecodeBase64Image(base64String);
+        }
+        #endregion
+        #region UI - DtG Button Interaction
+        private void DtGSubmitButton_Click(object sender, RoutedEventArgs e)
+        {
+            DtGResponseBox.Text = new Engines.DtGEngine(DtGRequestBox.Text).SendPost();
+        }
+        #endregion
+        
 
         
+
+        private void CustomParametersBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

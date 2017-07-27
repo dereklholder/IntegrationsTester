@@ -24,6 +24,14 @@ namespace IntegrationsTester
             InitializeComponent();
             setComboBoxOnLoad();
         }
+        private void SaveAllTheThings()
+        {
+            VariableHandlers.Globals.Default.Save();
+            VariableHandlers.StandardCredentials.Default.Save();
+            VariableHandlers.CanadianCredentials.Default.Save();
+            VariableHandlers.LoopbackCredentials.Default.Save();
+            VariableHandlers.FSACredentials.Default.Save();
+        }
         private void setComboBoxOnLoad()
         {
             if (VariableHandlers.Globals.Default.Environment == "LIVE")
@@ -65,7 +73,7 @@ namespace IntegrationsTester
             {
                 VariableHandlers.Globals.Default.DuplicateMode = "NO_CHECK";
             }
-            VariableHandlers.Globals.Default.Save();
+            SaveAllTheThings();
             this.Close();
         }
 
