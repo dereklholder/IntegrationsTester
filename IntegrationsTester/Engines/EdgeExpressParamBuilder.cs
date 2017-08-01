@@ -19,8 +19,6 @@ namespace IntegrationsTester.Engines
         private string _xWebTerminalId;
         private string _xWebAuthkey;
         private string _duplicateMode = VariableHandlers.Globals.Default.DuplicateMode;
-
-
         public EdgeExpressParamBuilder(string transactionType)
         {
             _transactionType = transactionType;
@@ -106,7 +104,7 @@ namespace IntegrationsTester.Engines
         {
             StringBuilder sb = new StringBuilder();
             XmlWriterSettings ws = new XmlWriterSettings();
-            ws.Indent = false;
+            ws.Indent = true;
             ws.OmitXmlDeclaration = true;
 
             using (XmlWriter xml = XmlWriter.Create(sb, ws))
@@ -143,7 +141,7 @@ namespace IntegrationsTester.Engines
         {
             StringBuilder sb = new StringBuilder();
             XmlWriterSettings ws = new XmlWriterSettings();
-            ws.Indent = false;
+            ws.Indent = true;
             ws.OmitXmlDeclaration = true;
 
             using (XmlWriter xml = XmlWriter.Create(sb, ws))
@@ -184,7 +182,7 @@ namespace IntegrationsTester.Engines
         {
             StringBuilder sb = new StringBuilder();
             XmlWriterSettings ws = new XmlWriterSettings();
-            ws.Indent = false;
+            ws.Indent = true;
             ws.OmitXmlDeclaration = true;
 
             using (XmlWriter xml = XmlWriter.Create(sb, ws))
@@ -226,7 +224,7 @@ namespace IntegrationsTester.Engines
         {
             StringBuilder sb = new StringBuilder();
             XmlWriterSettings ws = new XmlWriterSettings();
-            ws.Indent = false;
+            ws.Indent = true;
             ws.OmitXmlDeclaration = true;
 
             using (XmlWriter xml = XmlWriter.Create(sb, ws))

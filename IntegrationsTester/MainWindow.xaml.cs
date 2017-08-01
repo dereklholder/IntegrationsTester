@@ -26,7 +26,7 @@ namespace IntegrationsTester
         {
             InitializeComponent();
             SetCommonCollections();
-         
+
         }
         #region EdgeExpressProcessingMethods
         private void EdgeExpressTransaction(string transactionType)
@@ -79,6 +79,10 @@ namespace IntegrationsTester
         private void logParametersAndResponse() //splitting this into its own method to make code prettier
         {
             using (var n = new GeneralFunctions.Logging(PostParametersBox.Text.ToString()))
+            {
+                n.WriteLog();
+            }
+            using (var n = new GeneralFunctions.Logging(QueryParametersBox.Text))
             {
                 n.WriteLog();
             }
@@ -731,14 +735,58 @@ namespace IntegrationsTester
         {
             DtGResponseBox.Text = new Engines.DtGEngine(DtGRequestBox.Text).SendPost();
         }
+        private void DtGLookupTransactionButton_Click(object sender, RoutedEventArgs e)
+        {
+            DtGRequestBox.Text = new Engines.DTGParamBuilder("lookupTransactionID").BuildLookupTransaction();
+        }
+        private void DtGLookupTransactionOrderIDButton_Click(object sender, RoutedEventArgs e)
+        {
+            DtGRequestBox.Text = new Engines.DTGParamBuilder("lookupOrderID").BuildLookupTransaction();
+        }
         #endregion
-        
 
-        
+
+
 
         private void CustomParametersBox_TextChanged(object sender, TextChangedEventArgs e)
         {
 
+        }
+
+        private void DtGAliasLookupTransaction_Click(object sender, RoutedEventArgs e)
+        {
+            DtGRequestBox.Text = new Engines.DTGParamBuilder("aliasLookup").BuildAliasTransaction();
+        }
+
+        private void DtGAliasUpdateTransaction_Click(object sender, RoutedEventArgs e)
+        {
+            DtGRequestBox.Text = new Engines.DTGParamBuilder("aliasUpdate").BuildAliasTransaction();
+        }
+
+        private void DtGAliasDeleteTransaction_Click(object sender, RoutedEventArgs e)
+        {
+            DtGRequestBox.Text = new Engines.DTGParamBuilder("aliasDelete").BuildAliasTransaction();
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            CefSharp.Cef.Shutdown();
+        }
+
+        private void EdgeLinkSubmitButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                EdgeLinkResultBox.Text = new Engines.EdgeLinkEngine(EdgeLinkRequestBox.Text, ((ComboBoxItem)EdgeLinkIntegrationMethodComboBox.SelectedItem).Name).Execute();
+            }
+            catch (Exception ex)
+            {
+                using (var n = new GeneralFunctions.Logging(ex.ToString()))
+                {
+                    n.WriteLog();
+                }
+            }
+            
         }
     }
 }

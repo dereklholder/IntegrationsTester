@@ -143,8 +143,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Engines\DtGEngine.cs" />
+    <Compile Include="Engines\DTGParamBuilder.cs" />
     <Compile Include="Engines\EdgeExpressEngine.cs" />
     <Compile Include="Engines\EdgeExpressParamBuilder.cs" />
+    <Compile Include="Engines\EdgeLinkEngine.cs" />
     <Compile Include="Engines\OEHPParamBuilder.cs" />
     <Compile Include="Engines\OEHPRCMStatus.cs" />
     <Compile Include="GeneralFunctions\DatabaseFunctions.cs" />
@@ -160,6 +162,11 @@
       <DependentUpon>CustomCredentials.settings</DependentUpon>
     </Compile>
     <Compile Include="VariableHandlers\EdgeExpressVariables.cs" />
+    <Compile Include="VariableHandlers\EdgeLinkVariables.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>EdgeLinkVariables.settings</DependentUpon>
+    </Compile>
     <Compile Include="VariableHandlers\Globals.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -233,6 +240,10 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>CustomCredentials.Designer.cs</LastGenOutput>
     </None>
+    <None Include="VariableHandlers\EdgeLinkVariables.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>EdgeLinkVariables.Designer.cs</LastGenOutput>
+    </None>
     <None Include="VariableHandlers\FSACredentials.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>FSACredentials.Designer.cs</LastGenOutput>
@@ -262,6 +273,7 @@
     <Content Include="Log\Log.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="oehpwpf.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">

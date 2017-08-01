@@ -7,7 +7,7 @@
         xmlns:local="clr-namespace:IntegrationsTester"
         xmlns:variableHandlers="clr-namespace:IntegrationsTester.VariableHandlers"
         mc:Ignorable="d"
-        Title="Integrations Tester" Height="544.048" Width="909.874">
+        Title="Integrations Tester" Height="544.048" Width="909.874" Icon="oehpwpf.ico" Closed="Window_Closed">
     <Grid>
         <Menu Height="25" VerticalAlignment="Top">
             <MenuItem Header="_File">
@@ -94,7 +94,7 @@
                 <Grid Background="#9CC568">
                     <Label Content="Amount:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="EdgeExpressAmountBox" HorizontalAlignment="Left" Height="23" Margin="10,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding Source={x:Static variableHandlers:StandardCredentials.Default}, Path=CurrentAmount}"/>
-                    <TextBox x:Name="EdgeExpressParameters" HorizontalAlignment="Left" Margin="10,284,0,10" TextWrapping="Wrap" AcceptsReturn="True" Width="309" Text="{Binding Source={x:Static variableHandlers:StandardCredentials.Default}, Path=EdgeExpressParameters}"/>
+                    <TextBox x:Name="EdgeExpressParameters" HorizontalAlignment="Left" Margin="10,284,0,10" TextWrapping="Wrap" AcceptsReturn="True" Width="335" Text="{Binding Source={x:Static variableHandlers:StandardCredentials.Default}, Path=EdgeExpressParameters}"/>
                     <Label x:Name="EdgeExpressRequestLabel" Content="Request:" HorizontalAlignment="Left" Margin="10,258,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="EdgeExpressModeLabel" Content="Mode:" HorizontalAlignment="Left" Margin="141,10,0,0" VerticalAlignment="Top"/>
                     <ComboBox x:Name="EdgeExpressModeComboBox" HorizontalAlignment="Left" Margin="141,41,0,0" VerticalAlignment="Top" Width="120" Height="26"/>
@@ -103,8 +103,8 @@
                         <ComboBoxItem x:Name="RawParameters" Content="Raw Parameters"/>
                     </ComboBox>
                     <Label x:Name="EdgeExpressSubmitMethodLabel" Content="Submit Method:" HorizontalAlignment="Left" Margin="270,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="3.083,-0.995"/>
-                    <TextBox x:Name="EdgeExpressResponseBox" HorizontalAlignment="Left" Margin="324,284,0,10" TextWrapping="Wrap" Width="389" AcceptsReturn="True"/>
-                    <Label x:Name="EdgeExpressResponseLabel" Content="Response:" HorizontalAlignment="Left" Margin="324,253,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.279,0.385"/>
+                    <TextBox x:Name="EdgeExpressResponseBox" HorizontalAlignment="Left" Margin="350,284,0,10" TextWrapping="Wrap" Width="358" AcceptsReturn="True"/>
+                    <Label x:Name="EdgeExpressResponseLabel" Content="Response:" HorizontalAlignment="Left" Margin="350,253,0,0" VerticalAlignment="Top" RenderTransformOrigin="2.279,0.385"/>
                     <Button x:Name="EdgeExpressSubmitButton" Content="Submit" HorizontalAlignment="Left" Margin="10,236,0,0" VerticalAlignment="Top" Width="75" Click="EdgeExpressSubmitButton_Click"/>
                     <Grid x:Name="EdgeExpressSimpleButtonGrid"  Margin="10,80,429,243" Visibility="Hidden">
                         <Button x:Name="EdgeExpressSaleButton" Content="Sale" HorizontalAlignment="Left" Margin="0,31,0,0" VerticalAlignment="Top" Width="95" Height="22" Click="EdgeExpressSaleButton_Click"/>
@@ -125,26 +125,37 @@
 
                 </Grid>
             </TabItem>
-            <TabItem Header="Direct To Gateway">
-                <Grid>
-                    <TextBox x:Name="DtGRequestBox" HorizontalAlignment="Left" Height="293" Margin="10,152,0,0" VerticalAlignment="Top" Width="300" AcceptsReturn="True"/>
-                    <Label x:Name="DtGRequestLabel" Content="Request:" HorizontalAlignment="Left" Margin="10,121,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="DtGResponseBox" HorizontalAlignment="Left" Height="293" Margin="315,152,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="300" AcceptsReturn="True"/>
-                    <Label x:Name="DtGResponseLabel" Content="Response:" HorizontalAlignment="Left" Margin="315,121,0,0" VerticalAlignment="Top"/>
-                    <Button x:Name="DtGSubmitButton" Content="Submit" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top" Width="75" Click="DtGSubmitButton_Click"/>
+            <TabItem Header="Direct To Gateway" Background="LightBlue">
+                <Grid Background="LightBlue">
+                    <TextBox x:Name="DtGRequestBox" HorizontalAlignment="Left" Margin="10,203,0,10" Width="300" AcceptsReturn="True"/>
+                    <Label x:Name="DtGRequestLabel" Content="Request:" HorizontalAlignment="Left" Margin="10,172,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="DtGResponseBox" HorizontalAlignment="Left" Margin="315,203,0,10" TextWrapping="Wrap" Width="300" AcceptsReturn="True"/>
+                    <Label x:Name="DtGResponseLabel" Content="Response:" HorizontalAlignment="Left" Margin="315,172,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="DtGSubmitButton" Content="Submit" HorizontalAlignment="Left" Margin="10,145,0,0" VerticalAlignment="Top" Width="75" Click="DtGSubmitButton_Click"/>
+                    <Button x:Name="DtGLookupTransactionButton" Content="Lookup Transaction TransactionID" HorizontalAlignment="Left" Margin="10,41,0,0" VerticalAlignment="Top" Width="191" Click="DtGLookupTransactionButton_Click"/>
+                    <Button x:Name="DtGLookupTransactionOrderIDButton" Content="Lookup Transaction OrderID" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" Width="191" RenderTransformOrigin="1.436,2.36" Click="DtGLookupTransactionOrderIDButton_Click"/>
+                    <Label x:Name="DtGCommonLabel" Content="Common Transactions" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="DtGAliasLookupTransaction" Content="Alias Lookup Transaction" HorizontalAlignment="Left" Margin="206,41,0,0" VerticalAlignment="Top" Width="161" Click="DtGAliasLookupTransaction_Click"/>
+                    <Button x:Name="DtGAliasUpdateTransaction" Content="Alias Update Transaction" HorizontalAlignment="Left" Margin="206,68,0,0" VerticalAlignment="Top" Width="161" Click="DtGAliasUpdateTransaction_Click"/>
+                    <Button x:Name="DtGAliasDeleteTransaction" Content="Alias Delete Transaction" HorizontalAlignment="Left" Margin="206,95,0,0" VerticalAlignment="Top" Width="161" Click="DtGAliasDeleteTransaction_Click"/>
                 </Grid>
 
             </TabItem>
-            <TabItem Header="EdgeLink">
-                <Grid>
-                    <Label Content="NYI" HorizontalAlignment="Left" Margin="137,93,0,0" VerticalAlignment="Top"/>
+            <TabItem Header="EdgeLink" Background="DarkGray">
+                <Grid Background="DarkGray">
+                    <TextBox x:Name="EdgeLinkRequestBox" HorizontalAlignment="Left" Margin="10,207,0,10" TextWrapping="Wrap" Width="242" SpellCheck.IsEnabled="True" AcceptsReturn="True"/>
+                    <TextBox x:Name="EdgeLinkResultBox" HorizontalAlignment="Left" Margin="257,207,0,10" TextWrapping="Wrap"  Width="262" AcceptsReturn="True"/>
+                    <Label x:Name="EdgeLinkRequestLabel" Content="Request" HorizontalAlignment="Left" Margin="10,176,0,0" VerticalAlignment="Top"/>
+                    <Label x:Name="EdgeLinkResultLabel" Content="Result" HorizontalAlignment="Left" Margin="257,176,0,0" VerticalAlignment="Top"/>
+                    <ComboBox x:Name="EdgeLinkIntegrationMethodComboBox" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0">
+                        <ComboBoxItem x:Name="DLL" Content="DLL"/>
+                        <ComboBoxItem x:Name="EXE" Content="EXE"/>
+                    </ComboBox>
+                    <Label x:Name="EdgeLinkIntegrationMethodLabel" Content="Integration Method:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+                    <Button x:Name="EdgeLinkSubmitButton" Content="Submit" HorizontalAlignment="Left" Margin="10,154,0,0" VerticalAlignment="Top" Width="75" Click="EdgeLinkSubmitButton_Click"/>
+                    <Label x:Name="EdgeLinkResultFilePathLabel" Content="Result File Path:" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top"/>
+                    <TextBox x:Name="EdgeLinkResultFileBox" HorizontalAlignment="Left" Height="23" Margin="10,94,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding Source={x:Static variableHandlers:Globals.Default}, Path=ResultFilePath}"/>
 
-                </Grid>
-
-            </TabItem>
-            <TabItem Header="HPF">
-                <Grid>
-                    <Label>NYI</Label>
                 </Grid>
 
             </TabItem>

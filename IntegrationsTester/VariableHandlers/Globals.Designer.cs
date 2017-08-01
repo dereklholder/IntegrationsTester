@@ -70,5 +70,17 @@ namespace IntegrationsTester.VariableHandlers {
                 this["UsePresets"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("c:\\temp\\")]
+        public string ResultFilePath {
+            get {
+                return ((string)(this["ResultFilePath"]));
+            }
+            set {
+                this["ResultFilePath"] = value;
+            }
+        }
     }
 }
