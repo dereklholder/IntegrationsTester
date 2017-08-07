@@ -69,6 +69,9 @@ namespace IntegrationsTester.Engines
                         break;
                     case "FSA":
                         throw new InvalidOperationException("FSA not Supported on OEHP");
+                    case "CUSTOM":
+                        _accountToken = VariableHandlers.CustomCredentials.Default.AccountToken;
+                        break;
                     default:
                         throw new InvalidOperationException("Invalid Preset Selected");
                 }

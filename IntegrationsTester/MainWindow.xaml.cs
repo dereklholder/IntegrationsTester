@@ -52,29 +52,32 @@ namespace IntegrationsTester
         private void RenderBrowser(Engines.OEHPEngine requestToOEHP)
         {
             string getResponseFromOEHP = requestToOEHP.Execute();
+            var browser = oehpChromiumBrowser.GetBrowser();
             _sessionToken = requestToOEHP.SessionToken;
+            
             if (requestToOEHP.ErrorMessage == null)
             {
                 switch (requestToOEHP._requestMethod)
                 {
                     case "PayPage":
-                        oehpChromiumBrowser.Load(getResponseFromOEHP);
+                        browser.MainFrame.LoadUrl(getResponseFromOEHP);
                         break;
                     case "HTMLDoc":
                         CefSharp.WebBrowserExtensions.LoadHtml(oehpChromiumBrowser, getResponseFromOEHP, false);
                         break;
                     case "DirectPost":
-                        oehpChromiumBrowser.Content = getResponseFromOEHP;
+                        CefSharp.WebBrowserExtensions.LoadString(oehpChromiumBrowser, getResponseFromOEHP, "about:success");
                         break;
                     default:
-                        oehpChromiumBrowser.Content = "Unkown Error Occured, Check all Transaction Parameters";
+                        browser.MainFrame.LoadStringForUrl("Unkown error Occured, Check all transaction Parameters", "about:failure");
                         break;
                 }
             }
             else
             {
-                oehpChromiumBrowser.Content = requestToOEHP.ErrorMessage;
+                browser.MainFrame.LoadStringForUrl(getResponseFromOEHP, "about:failure");
             }
+            requestToOEHP.Dispose();
         }
         private void logParametersAndResponse() //splitting this into its own method to make code prettier
         {
@@ -649,24 +652,35 @@ namespace IntegrationsTester
                     CanadianTestingMenuItem.IsChecked = false;
                     LoopBackTestingMenuItem.IsChecked = false;
                     FSATestingMenuItem.IsChecked = false;
+                    CustomPresetMenuItem.IsChecked = false;
                     break;
                 case "CanadianTestingMenuItem":
                     Globals.Default.CredentialsToUse = "CA";
                     EMVTestingMenuItem.IsChecked = false;
                     LoopBackTestingMenuItem.IsChecked = false;
                     FSATestingMenuItem.IsChecked = false;
+                    CustomPresetMenuItem.IsChecked = false;
                     break;
                 case "LoopBackTestingMenuItem":
                     Globals.Default.CredentialsToUse = "LOOPBACK";
                     EMVTestingMenuItem.IsChecked = false;
                     CanadianTestingMenuItem.IsChecked = false;
                     FSATestingMenuItem.IsChecked = false;
+                    CustomPresetMenuItem.IsChecked = false;
                     break;
                 case "FSATestingMenuItem":
                     Globals.Default.CredentialsToUse = "FSA";
                     EMVTestingMenuItem.IsChecked = false;
                     CanadianTestingMenuItem.IsChecked = false;
                     LoopBackTestingMenuItem.IsChecked = false;
+                    CustomPresetMenuItem.IsChecked = false;
+                    break;
+                case "CustomPresetMenuItem":
+                    Globals.Default.CredentialsToUse = "CUSTOM";
+                    EMVTestingMenuItem.IsChecked = false;
+                    CanadianTestingMenuItem.IsChecked = false;
+                    LoopBackTestingMenuItem.IsChecked = false;
+                    FSATestingMenuItem.IsChecked = false;
                     break;
                 default:
                     break;
@@ -744,7 +758,23 @@ namespace IntegrationsTester
             DtGRequestBox.Text = new Engines.DTGParamBuilder("lookupOrderID").BuildLookupTransaction();
         }
         #endregion
+        #region UI EdgeLink Button Interaction
+        private void EdgeLinkSubmitButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                EdgeLinkResultBox.Text = new Engines.EdgeLinkEngine(EdgeLinkRequestBox.Text, ((ComboBoxItem)EdgeLinkIntegrationMethodComboBox.SelectedItem).Name).Execute();
+            }
+            catch (Exception ex)
+            {
+                using (var n = new GeneralFunctions.Logging(ex.ToString()))
+                {
+                    n.WriteLog();
+                }
+            }
 
+        }
+        #endregion
 
 
 
@@ -773,20 +803,6 @@ namespace IntegrationsTester
             CefSharp.Cef.Shutdown();
         }
 
-        private void EdgeLinkSubmitButton_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                EdgeLinkResultBox.Text = new Engines.EdgeLinkEngine(EdgeLinkRequestBox.Text, ((ComboBoxItem)EdgeLinkIntegrationMethodComboBox.SelectedItem).Name).Execute();
-            }
-            catch (Exception ex)
-            {
-                using (var n = new GeneralFunctions.Logging(ex.ToString()))
-                {
-                    n.WriteLog();
-                }
-            }
-            
-        }
+        
     }
 }

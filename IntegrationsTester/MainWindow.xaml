@@ -21,6 +21,7 @@
                     <MenuItem Header="_Canadian Testing" x:Name="CanadianTestingMenuItem" IsCheckable="True" Click="SetPresetToUse"/>
                     <MenuItem Header="_Loopback Testing" x:Name="LoopBackTestingMenuItem" IsCheckable="True" Click="SetPresetToUse"/>
                     <MenuItem Header="_FSA Testing" x:Name="FSATestingMenuItem" IsCheckable="True" Click="SetPresetToUse"/>
+                    <MenuItem Header="_Custom Preset" x:Name="CustomPresetMenuItem" IsCheckable="True" Click="SetPresetToUse"/>
                     <Separator />
                     <MenuItem Header="_About Presets" x:Name="AboutPresetsMenuItem"/>
                 </MenuItem>
@@ -41,7 +42,7 @@
         <TabControl Margin="1,27,0,0">
             <TabItem Header="OEHP" Background="#DDDFFF">
                 <Grid Background="#DDDFFF">
-                    <cefsharp:ChromiumWebBrowser Grid.Row="0" Name="oehpChromiumBrowser" Address="" Margin="10,273,0,10" Background="Black" BorderThickness="0" HorizontalAlignment="Left" Width="440" FrameLoadEnd="oehpChromiumBrowser_FrameLoadEnd"  />
+                    <cefsharp:ChromiumWebBrowser Grid.Row="0" Name="oehpChromiumBrowser" Address="" Margin="10,273,0,10" Background="Black" BorderThickness="0" HorizontalAlignment="Left" Width="440" FrameLoadEnd="oehpChromiumBrowser_FrameLoadEnd"   />
                     <TextBox x:Name="PostParametersBox" Height="100" Margin="740,26,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
                     <Label x:Name="postParamatersBoxLabel" Content="Post Parameters:" Margin="750,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="98"/>
                     <Label x:Name="queryParametersBoxLabel" Content="Query Parameters:" Margin="740,126,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="107"/>

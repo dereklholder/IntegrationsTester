@@ -59,6 +59,11 @@ namespace IntegrationsTester.Engines
                     _xWebTerminalId = VariableHandlers.FSACredentials.Default.XWebTerminalID;
                     _xWebAuthkey = VariableHandlers.FSACredentials.Default.XWebAuthKey;
                     break;
+                case "CUSTOM":
+                    _xWebId = VariableHandlers.CustomCredentials.Default.XWebID;
+                    _xWebTerminalId = VariableHandlers.CustomCredentials.Default.XWebTerminalID;
+                    _xWebAuthkey = VariableHandlers.CustomCredentials.Default.XWebAuthKey;
+                    break;
                 default:
                     break;
             }

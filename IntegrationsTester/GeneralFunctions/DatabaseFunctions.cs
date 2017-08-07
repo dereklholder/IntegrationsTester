@@ -227,6 +227,27 @@ namespace IntegrationsTester.GeneralFunctions
             _action = action;
             _data = data;
         }
+        public void CreateDB()
+        {
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "database.sqlite") != true)
+            {
+                CreateDBFile();
+                CreateDTGTransactionTable();
+                CreateEdgeExpressSignatureTable();
+                CreateEdgeExpressTransactionTable();
+                CreateEdgeLinkSignatureTable();
+                CreateEdgeLinkTransactionTable();
+                CreateHPFSignatureTable();
+                CreateHPFTransactionTable();
+                CreateOEHPSignatureTable();
+                CreateOEHPTransactionTable();
+            }
+            else
+            {
+                File.Delete(AppDomain.CurrentDomain.BaseDirectory + "database.sqlite");
+                CreateDB();
+            }
+        }
         public void Execute()
         {
             switch (_integrationMethod)

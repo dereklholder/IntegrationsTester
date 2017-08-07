@@ -10,7 +10,7 @@ using System.Windows;
 
 namespace IntegrationsTester.Engines
 { 
-    public class OEHPEngine 
+    public class OEHPEngine : IDisposable
     {
         private string _environment;
         private string _parameters;
@@ -221,6 +221,15 @@ namespace IntegrationsTester.Engines
                 return ex.ToString();
 
             }
+        }
+        public void Dispose()
+        {
+            _environment = null;
+            _parameters = null;
+            _requestMethod = null;
+            _urlToUse = null;
+            SessionToken = null;
+            ErrorMessage = null;
         }
     }
 }

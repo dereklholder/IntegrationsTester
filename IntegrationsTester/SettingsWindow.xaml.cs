@@ -31,6 +31,7 @@ namespace IntegrationsTester
             VariableHandlers.CanadianCredentials.Default.Save();
             VariableHandlers.LoopbackCredentials.Default.Save();
             VariableHandlers.FSACredentials.Default.Save();
+            VariableHandlers.CustomCredentials.Default.Save();
         }
         private void setComboBoxOnLoad()
         {
