@@ -25,17 +25,9 @@
                     <Separator />
                     <MenuItem Header="_About Presets" x:Name="AboutPresetsMenuItem"/>
                 </MenuItem>
-                <MenuItem Header="_Query Response Mode">
-                    <MenuItem Header="_Querystring"/>
-                    <MenuItem Header="_JSON"/>
-                </MenuItem>
-
-            </MenuItem>
-            <MenuItem Header="_Tools">
-
             </MenuItem>
             <MenuItem Header="_Help">
-                <MenuItem Header="_Guide" x:Name="GuideMenuItem"/>
+                <MenuItem Header="_Guide" x:Name="GuideMenuItem" Click="GuideMenuItem_Click"/>
                 <MenuItem Header="_About" x:Name="AboutMenuItem"/>
             </MenuItem>
         </Menu>
@@ -48,7 +40,7 @@
                     <Label x:Name="queryParametersBoxLabel" Content="Query Parameters:" Margin="740,126,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="107"/>
                     <TextBox x:Name="QueryParametersBox" Height="100" Margin="740,152,10,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="2.527,1.43"/>
                     <Label x:Name="rcmStatusBoxLabel" Content="RCM Status:" Margin="0,257,77,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="74"/>
-                    <TextBox x:Name="RCMStatusBox" Margin="0,288,10,10" TextWrapping="Wrap" HorizontalAlignment="Right" Width="141"/>
+                    <TextBox x:Name="RCMStatusBox" Margin="0,288,10,10" TextWrapping="Wrap" HorizontalAlignment="Right" Width="141" Text="{Binding Source={x:Static variableHandlers:Globals.Default}, Path=RCMStatus}"/>
                     <Grid Margin="10,52,156,300" Name="OEHPComboBoxenAndLabels">
                         <ComboBox x:Name="TransactionTypeComboBox" Margin="0,26,0,0" SelectionChanged="TransactionTypeComboBox_SelectionChanged" Height="26" VerticalAlignment="Top" HorizontalAlignment="Left" Width="111"/>
                         <Label x:Name="TransactionTypeLabel" Content="Transaction Type:" HorizontalAlignment="Left" VerticalAlignment="Top"/>
@@ -156,9 +148,7 @@
                     <Button x:Name="EdgeLinkSubmitButton" Content="Submit" HorizontalAlignment="Left" Margin="10,154,0,0" VerticalAlignment="Top" Width="75" Click="EdgeLinkSubmitButton_Click"/>
                     <Label x:Name="EdgeLinkResultFilePathLabel" Content="Result File Path:" HorizontalAlignment="Left" Margin="10,63,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="EdgeLinkResultFileBox" HorizontalAlignment="Left" Height="23" Margin="10,94,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="{Binding Source={x:Static variableHandlers:Globals.Default}, Path=ResultFilePath}"/>
-
                 </Grid>
-
             </TabItem>
         </TabControl>
 

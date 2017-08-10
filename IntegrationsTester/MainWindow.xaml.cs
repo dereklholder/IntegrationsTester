@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using IntegrationsTester.VariableHandlers;
+using System.Threading;
+using System.IO;
+using System.Diagnostics;
 
 namespace IntegrationsTester
 {
@@ -54,7 +57,9 @@ namespace IntegrationsTester
             string getResponseFromOEHP = requestToOEHP.Execute();
             var browser = oehpChromiumBrowser.GetBrowser();
             _sessionToken = requestToOEHP.SessionToken;
-            
+
+            var n = new Engines.OEHPRCMStatus(_sessionToken);
+
             if (requestToOEHP.ErrorMessage == null)
             {
                 switch (requestToOEHP._requestMethod)
@@ -78,6 +83,11 @@ namespace IntegrationsTester
                 browser.MainFrame.LoadStringForUrl(getResponseFromOEHP, "about:failure");
             }
             requestToOEHP.Dispose();
+            if ((string)EntryModeComboBox.SelectedItem == "EMV") // Starts Executing RCM status Get 
+            {
+                var workerThread = new Thread(n.ExecuteOnTimer);
+                workerThread.Start();
+            }
         }
         private void logParametersAndResponse() //splitting this into its own method to make code prettier
         {
@@ -633,6 +643,23 @@ namespace IntegrationsTester
         }
         #endregion
         #region UI - MenuBar Interaction
+        private void GuideMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string path = AppDomain.CurrentDomain.BaseDirectory + "Integrations Tester User Guide.docx";
+                ProcessStartInfo info = new ProcessStartInfo();
+                info.FileName = path;
+                Process.Start(info);
+            }
+            catch (Exception ex)
+            {
+                using (var n = new GeneralFunctions.Logging(ex.ToString()))
+                {
+                    n.WriteLog();
+                }
+            }
+        }
         private void SettingsMenuItem_Click(object sender, RoutedEventArgs e)
         {
             SettingsWindow sw = new SettingsWindow();
@@ -757,6 +784,20 @@ namespace IntegrationsTester
         {
             DtGRequestBox.Text = new Engines.DTGParamBuilder("lookupOrderID").BuildLookupTransaction();
         }
+        private void DtGAliasLookupTransaction_Click(object sender, RoutedEventArgs e)
+        {
+            DtGRequestBox.Text = new Engines.DTGParamBuilder("aliasLookup").BuildAliasTransaction();
+        }
+
+        private void DtGAliasUpdateTransaction_Click(object sender, RoutedEventArgs e)
+        {
+            DtGRequestBox.Text = new Engines.DTGParamBuilder("aliasUpdate").BuildAliasTransaction();
+        }
+
+        private void DtGAliasDeleteTransaction_Click(object sender, RoutedEventArgs e)
+        {
+            DtGRequestBox.Text = new Engines.DTGParamBuilder("aliasDelete").BuildAliasTransaction();
+        }
         #endregion
         #region UI EdgeLink Button Interaction
         private void EdgeLinkSubmitButton_Click(object sender, RoutedEventArgs e)
@@ -783,20 +824,7 @@ namespace IntegrationsTester
 
         }
 
-        private void DtGAliasLookupTransaction_Click(object sender, RoutedEventArgs e)
-        {
-            DtGRequestBox.Text = new Engines.DTGParamBuilder("aliasLookup").BuildAliasTransaction();
-        }
-
-        private void DtGAliasUpdateTransaction_Click(object sender, RoutedEventArgs e)
-        {
-            DtGRequestBox.Text = new Engines.DTGParamBuilder("aliasUpdate").BuildAliasTransaction();
-        }
-
-        private void DtGAliasDeleteTransaction_Click(object sender, RoutedEventArgs e)
-        {
-            DtGRequestBox.Text = new Engines.DTGParamBuilder("aliasDelete").BuildAliasTransaction();
-        }
+        
 
         private void Window_Closed(object sender, EventArgs e)
         {

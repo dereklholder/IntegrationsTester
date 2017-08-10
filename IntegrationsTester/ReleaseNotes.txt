@@ -1,2 +1,6 @@
-﻿1.0 
+﻿1.0.1
+Fixed RCM Status, implemented on timer to deal with some ASyncronus Desyncing issues with CEFSharp browser
+
+
+1.0 
 Initial Release

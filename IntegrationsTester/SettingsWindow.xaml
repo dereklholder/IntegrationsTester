@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:IntegrationsTester"
         xmlns:variableHandlers="clr-namespace:IntegrationsTester.VariableHandlers"
         mc:Ignorable="d"
-        Title="Settings" Height="378.149" Width="502.181" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
+        Title="Settings" Height="394.22" Width="551.983" WindowStartupLocation="CenterScreen" WindowStyle="ToolWindow">
     <Grid>
         <Label x:Name="EnvironmentLabel" Content="Environment:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <ComboBox HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="80" x:Name="EnvironmentComboBox" SelectionChanged="EnvironmentComboBox_SelectionChanged">
@@ -18,31 +18,31 @@
             <ComboBoxItem Content="Checking On" x:Name="CHECK"/>
             <ComboBoxItem Content="Checking Off" x:Name="NO_CHECK"/>
         </ComboBox>
-        <Button x:Name="SaveButton" Content="Save" HorizontalAlignment="Left" Margin="10,323,0,0" VerticalAlignment="Top" Width="75" Click="SaveButton_Click" IsDefault="True"/>
-        <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="90,323,0,0" VerticalAlignment="Top" Width="75" IsCancel="True" Click="CancelButton_Click"/>
+        <Button x:Name="SaveButton" Content="Save" HorizontalAlignment="Left" Margin="10,337,0,0" VerticalAlignment="Top" Width="75" Click="SaveButton_Click" IsDefault="True"/>
+        <Button x:Name="CancelButton" Content="Cancel" HorizontalAlignment="Left" Margin="90,337,0,0" VerticalAlignment="Top" Width="75" IsCancel="True" Click="CancelButton_Click"/>
 
-        <TabControl Height="254" Margin="0,64,0,0" VerticalAlignment="Top">
+        <TabControl Height="273" Margin="0,64,0,0" VerticalAlignment="Top">
             <TabItem Header="US Credentials" Background="Red">
                 <Grid Background="Blue">
                     <Label x:Name="AccountTokenLabel" Content="Account Token:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="AccountTokenBox" HorizontalAlignment="Left" Height="23" Margin="10,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="466" Text="{Binding Source={x:Static variableHandlers:StandardCredentials.Default}, Path=ActiveAccountToken}"/>
+                    <TextBox x:Name="AccountTokenBox" HorizontalAlignment="Left" Height="23" Margin="10,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="498" Text="{Binding Source={x:Static variableHandlers:StandardCredentials.Default}, Path=ActiveAccountToken}"/>
                     <Label x:Name="XWebIDLabel" Content="XWeb ID:" HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="XWebTerminalIDLabel" Content="Terminal ID:" HorizontalAlignment="Left" Margin="154,64,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="XWebIDBox" HorizontalAlignment="Left" Height="23" Margin="10,90,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:StandardCredentials.Default}, Path=ActiveXWebID}" VerticalAlignment="Top" Width="139"/>
                     <TextBox x:Name="XWebTerminalIDBox" HorizontalAlignment="Left" Height="23" Margin="154,90,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:StandardCredentials.Default}, Path=ActiveXWebTerminalID}" VerticalAlignment="Top" Width="120"/>
                     <Label x:Name="XWebAuthKeyLabel" Content="Auth Key:" HorizontalAlignment="Left" Margin="279,64,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="XWebAuthKeyBox" HorizontalAlignment="Left" Height="23" Margin="279,90,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:StandardCredentials.Default}, Path=ActiveXWebAuthKey}" VerticalAlignment="Top" Width="197"/>
+                    <TextBox x:Name="XWebAuthKeyBox" HorizontalAlignment="Left" Height="23" Margin="279,90,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:StandardCredentials.Default}, Path=ActiveXWebAuthKey}" VerticalAlignment="Top" Width="229"/>
 
                 </Grid>
             </TabItem>
             <TabItem Header="CA Credentials" Background="White">
                 <Grid Background="Red">
                     <Label x:Name="CAaccountTokenLabel" Content="Account Token:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="CAAccountTokenBox" HorizontalAlignment="Left" Height="23" Margin="10,36,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:CanadianCredentials.Default}, Path=AccountToken}" VerticalAlignment="Top" Width="466"/>
+                    <TextBox x:Name="CAAccountTokenBox" HorizontalAlignment="Left" Height="23" Margin="10,36,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:CanadianCredentials.Default}, Path=AccountToken}" VerticalAlignment="Top" Width="498"/>
                     <Label x:Name="CreditXWebIDLabel" Content="XWebID:" HorizontalAlignment="Left" Margin="11,87,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="CACreditXWebIDBox" HorizontalAlignment="Left" Height="23" Margin="10,113,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:CanadianCredentials.Default}, Path=XWebIDCredit}" VerticalAlignment="Top" Width="139"/>
                     <TextBox x:Name="CACreditXWebTerminalIDBox" HorizontalAlignment="Left" Height="23" Margin="154,113,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:CanadianCredentials.Default}, Path=XWebTerminalIDCredit}" VerticalAlignment="Top" Width="120"/>
-                    <TextBox x:Name="CACreditXWebAuthkeyBox" HorizontalAlignment="Left" Height="23" Margin="279,113,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:CanadianCredentials.Default}, Path=XWebAuthKeyCredit}" VerticalAlignment="Top" Width="197"/>
+                    <TextBox x:Name="CACreditXWebAuthkeyBox" HorizontalAlignment="Left" Height="23" Margin="279,113,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:CanadianCredentials.Default}, Path=XWebAuthKeyCredit}" VerticalAlignment="Top" Width="229"/>
                     <Label x:Name="Credit_" Content="Credit:" HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="CACreditTerminalIDLabel" Content="Terminal ID:" HorizontalAlignment="Left" Margin="154,87,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="CACreditXWebAuthKeyLabel" Content="Auth Key:" HorizontalAlignment="Left" Margin="279,87,0,0" VerticalAlignment="Top"/>
@@ -50,7 +50,7 @@
                     <Label x:Name="CreditXWebIDLabel_Copy" Content="XWebID:" HorizontalAlignment="Left" Margin="10,162,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="CADebitXWebIDBox" HorizontalAlignment="Left" Height="23" Margin="10,188,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:CanadianCredentials.Default}, Path=XWebIDDebit}" VerticalAlignment="Top" Width="139"/>
                     <TextBox x:Name="CADebitXWebTerminalIDBox" HorizontalAlignment="Left" Height="23" Margin="154,188,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:CanadianCredentials.Default}, Path=XWebTerminalIDDebit}" VerticalAlignment="Top" Width="120"/>
-                    <TextBox x:Name="CADebitXWebAuthKeyBox" HorizontalAlignment="Left" Height="23" Margin="279,188,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:CanadianCredentials.Default}, Path=XWebAuthKeyDebit}" VerticalAlignment="Top" Width="197"/>
+                    <TextBox x:Name="CADebitXWebAuthKeyBox" HorizontalAlignment="Left" Height="23" Margin="279,188,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:CanadianCredentials.Default}, Path=XWebAuthKeyDebit}" VerticalAlignment="Top" Width="229"/>
                     <Label x:Name="CACreditTerminalIDLabel_Copy" Content="Terminal ID:" HorizontalAlignment="Left" Margin="154,162,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="CACreditXWebAuthKeyLabel_Copy" Content="Auth Key:" HorizontalAlignment="Left" Margin="279,162,0,0" VerticalAlignment="Top"/>
                 </Grid>
@@ -58,13 +58,13 @@
             <TabItem Header="Loopback Credentials" Background="LightBlue">
                 <Grid Background="LightBlue">
                     <Label x:Name="LoopBackAccountTokenLabel" Content="Account Token:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="LoopBackAccountTokenBox" HorizontalAlignment="Left" Height="23" Margin="10,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="464" Text="{Binding Source={x:Static variableHandlers:LoopbackCredentials.Default}, Path=AccountToken}"/>
+                    <TextBox x:Name="LoopBackAccountTokenBox" HorizontalAlignment="Left" Height="23" Margin="10,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="498" Text="{Binding Source={x:Static variableHandlers:LoopbackCredentials.Default}, Path=AccountToken}"/>
                     <Label x:Name="LoopBackXWebIDLabel" Content="XWeb ID:" HorizontalAlignment="Left" Margin="10,64,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="LoopBackXWebTerminalIDLabel" Content=" Terminal ID:" HorizontalAlignment="Left" Margin="154,64,0,0" VerticalAlignment="Top"/>
                     <Label x:Name="LoopbackXWebAuthKeyLabel" Content="Auth Key:" HorizontalAlignment="Left" Margin="279,64,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="LoopbackXWebIDBox" HorizontalAlignment="Left" Height="23" Margin="10,90,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:LoopbackCredentials.Default}, Path=XWebID}" VerticalAlignment="Top" Width="139"/>
                     <TextBox x:Name="LoopbackXWebTerminalIDBox" HorizontalAlignment="Left" Height="23" Margin="154,90,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:LoopbackCredentials.Default}, Path=XWebTerminalID}" VerticalAlignment="Top" Width="120"/>
-                    <TextBox x:Name="LoopbackXWebAuthkeyBox" HorizontalAlignment="Left" Height="23" Margin="279,90,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:LoopbackCredentials.Default}, Path=XWebAuthKey}" VerticalAlignment="Top" Width="197"/>
+                    <TextBox x:Name="LoopbackXWebAuthkeyBox" HorizontalAlignment="Left" Height="23" Margin="279,90,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:LoopbackCredentials.Default}, Path=XWebAuthKey}" VerticalAlignment="Top" Width="229"/>
                 </Grid>
             </TabItem>
             <TabItem Header="FSA Credentials">
@@ -74,7 +74,7 @@
                     <Label x:Name="FSAXWebAuthKeyLabel" Content="Auth Key:" HorizontalAlignment="Left" Margin="279,10,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="FSAXWebIDBox" HorizontalAlignment="Left" Height="23" Margin="10,41,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:FSACredentials.Default}, Path=XWebID}" VerticalAlignment="Top" Width="139"/>
                     <TextBox x:Name="FSAXWebTerminalIDBox" HorizontalAlignment="Left" Height="23" Margin="154,41,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:FSACredentials.Default}, Path=XWebTerminalID}" VerticalAlignment="Top" Width="120"/>
-                    <TextBox x:Name="FSAXWebAuthKeyBox" HorizontalAlignment="Left" Height="23" Margin="279,41,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:FSACredentials.Default}, Path=XWebAuthKey}" VerticalAlignment="Top" Width="197"/>
+                    <TextBox x:Name="FSAXWebAuthKeyBox" HorizontalAlignment="Left" Height="23" Margin="279,41,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:FSACredentials.Default}, Path=XWebAuthKey}" VerticalAlignment="Top" Width="229"/>
                 </Grid>
             </TabItem>
             <TabItem Header="Custom Credentials" Background="Green">
@@ -84,9 +84,9 @@
                     <Label x:Name="CustomXWebAuthKeyLabel" Content="Auth Key:" HorizontalAlignment="Left" Margin="279,69,0,0" VerticalAlignment="Top"/>
                     <TextBox x:Name="CustomXWebIDBox" HorizontalAlignment="Left" Height="23" Margin="10,95,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:CustomCredentials.Default}, Path=XWebID}" VerticalAlignment="Top" Width="139"/>
                     <TextBox x:Name="CustomXWebTerminalIDBox" HorizontalAlignment="Left" Height="23" Margin="154,95,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:CustomCredentials.Default}, Path=XWebTerminalID}" VerticalAlignment="Top" Width="120"/>
-                    <TextBox x:Name="CustomXWebAuthKeyBox" HorizontalAlignment="Left" Height="23" Margin="279,95,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:CustomCredentials.Default}, Path=XWebAuthKey}" VerticalAlignment="Top" Width="197"/>
+                    <TextBox x:Name="CustomXWebAuthKeyBox" HorizontalAlignment="Left" Height="23" Margin="279,95,0,0" TextWrapping="Wrap" Text="{Binding Source={x:Static variableHandlers:CustomCredentials.Default}, Path=XWebAuthKey}" VerticalAlignment="Top" Width="229"/>
                     <Label x:Name="CustomAccountTokenkLabel" Content="Account Token" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
-                    <TextBox x:Name="CustomAccountTokenBox" HorizontalAlignment="Left" Height="23" Margin="10,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="464" Text="{Binding Source={x:Static variableHandlers:CustomCredentials.Default}, Path=AccountToken}"/>
+                    <TextBox x:Name="CustomAccountTokenBox" HorizontalAlignment="Left" Height="23" Margin="10,41,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="498" Text="{Binding Source={x:Static variableHandlers:CustomCredentials.Default}, Path=AccountToken}"/>
                 </Grid>
                 
             </TabItem>

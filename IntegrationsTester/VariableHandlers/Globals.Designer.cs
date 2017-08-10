@@ -82,5 +82,17 @@ namespace IntegrationsTester.VariableHandlers {
                 this["ResultFilePath"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string RCMStatus {
+            get {
+                return ((string)(this["RCMStatus"]));
+            }
+            set {
+                this["RCMStatus"] = value;
+            }
+        }
     }
 }

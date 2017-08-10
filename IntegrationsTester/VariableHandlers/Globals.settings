@@ -17,5 +17,8 @@
     <Setting Name="ResultFilePath" Type="System.String" Scope="User">
       <Value Profile="(Default)">c:\temp\</Value>
     </Setting>
+    <Setting Name="RCMStatus" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -28,7 +28,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -226,12 +226,39 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Content Include="widevinecdmadapter.dll" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Content Include="CefSharp.BrowserSubprocess.Core.dll" />
+    <Content Include="CefSharp.BrowserSubprocess.Core.pdb" />
+    <Content Include="CefSharp.BrowserSubprocess.exe" />
+    <Content Include="CefSharp.BrowserSubprocess.pdb" />
+    <Content Include="CefSharp.Core.dll" />
+    <Content Include="CefSharp.Core.pdb" />
+    <Resource Include="CefSharp.Core.xml" />
+    <Content Include="CefSharp.dll" />
+    <Content Include="CefSharp.pdb" />
+    <Content Include="CefSharp.Wpf.dll" />
+    <Content Include="CefSharp.Wpf.pdb" />
+    <Resource Include="CefSharp.Wpf.xml" />
+    <Resource Include="CefSharp.xml" />
+    <Content Include="chrome_elf.dll" />
+    <Content Include="d3dcompiler_47.dll" />
+    <Content Include="Integrations Tester User Guide.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="cef.pak" />
+    <None Include="cef_100_percent.pak" />
+    <None Include="cef_200_percent.pak" />
+    <None Include="cef_extensions.pak" />
+    <None Include="devtools_resources.pak" />
+    <None Include="icudtl.dat" />
     <None Include="IntegrationsTester_TemporaryKey.pfx" />
+    <None Include="natives_blob.bin" />
     <None Include="Properties\app.manifest" />
+    <None Include="snapshot_blob.bin" />
     <None Include="VariableHandlers\CanadianCredentials.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>CanadianCredentials.Designer.cs</LastGenOutput>
@@ -270,6 +297,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="libcef.dll" />
+    <Content Include="libEGL.dll" />
+    <Content Include="libGLESv2.dll" />
     <Content Include="Log\Log.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

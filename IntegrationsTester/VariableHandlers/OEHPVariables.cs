@@ -21,18 +21,19 @@ namespace IntegrationsTester.VariableHandlers
         public static string LiveRcmStatusURL = "https://ws.paygateway.com/HostPayService/v1/hostpay/transactions/status/";
 
     }
+    public class RCMStatus
+    {
+        public string rcmFinishedSignal { get; set; }
+        public string rcmStartingSignal { get; set; }
+        public string rcmResponseCode { get; set; }
+        public string paymentCancelledSignal { get; set; }
+        public string rcmResponseDescription { get; set; }
+    }
     public class PayPageJson
     {
         public string sealedSetupParameters { get; set; }
         public string actionUrl { get; set; }
         public string errorMessage { get; set; }
-    }
-    public class RCMStatus
-    {
-        public string rcmStartingSignal { get; set; }
-        public string rcmFinishedSignal { get; set; }
-        public string rcmResponseCode { get; set; }
-        public string rcmResponseDescription { get; set; }
     }
     public struct QueryResultJson
     {
