@@ -71,16 +71,16 @@ namespace IntegrationsTester
                         CefSharp.WebBrowserExtensions.LoadHtml(oehpChromiumBrowser, getResponseFromOEHP, false);
                         break;
                     case "DirectPost":
-                        CefSharp.WebBrowserExtensions.LoadString(oehpChromiumBrowser, getResponseFromOEHP, "about:success");
+                        CefSharp.WebBrowserExtensions.LoadHtml(oehpChromiumBrowser, getResponseFromOEHP, false);
                         break;
                     default:
-                        browser.MainFrame.LoadStringForUrl("Unkown error Occured, Check all transaction Parameters", "about:failure");
+                        CefSharp.WebBrowserExtensions.LoadHtml(oehpChromiumBrowser, "Unkown error Occured, Check all transaction Parameters", false);
                         break;
                 }
             }
             else
             {
-                browser.MainFrame.LoadStringForUrl(getResponseFromOEHP, "about:failure");
+                CefSharp.WebBrowserExtensions.LoadHtml(oehpChromiumBrowser, getResponseFromOEHP, false);
             }
             requestToOEHP.Dispose();
             if ((string)EntryModeComboBox.SelectedItem == "EMV") // Starts Executing RCM status Get 

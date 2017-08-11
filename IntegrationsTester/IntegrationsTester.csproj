@@ -28,7 +28,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationRevision>8</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -231,16 +231,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Content Include="CefSharp.BrowserSubprocess.Core.dll" />
     <Content Include="CefSharp.BrowserSubprocess.Core.pdb" />
     <Content Include="CefSharp.BrowserSubprocess.exe" />
     <Content Include="CefSharp.BrowserSubprocess.pdb" />
-    <Content Include="CefSharp.Core.dll" />
     <Content Include="CefSharp.Core.pdb" />
     <Resource Include="CefSharp.Core.xml" />
-    <Content Include="CefSharp.dll" />
     <Content Include="CefSharp.pdb" />
-    <Content Include="CefSharp.Wpf.dll" />
     <Content Include="CefSharp.Wpf.pdb" />
     <Resource Include="CefSharp.Wpf.xml" />
     <Resource Include="CefSharp.xml" />
@@ -254,6 +250,7 @@
     <None Include="cef_200_percent.pak" />
     <None Include="cef_extensions.pak" />
     <None Include="devtools_resources.pak" />
+    <None Include="locales\en-US.pak" />
     <None Include="icudtl.dat" />
     <None Include="IntegrationsTester_TemporaryKey.pfx" />
     <None Include="natives_blob.bin" />
@@ -317,6 +314,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="publish\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\cef.redist.x64.3.2987.1601\build\cef.redist.x64.targets" Condition="Exists('..\packages\cef.redist.x64.3.2987.1601\build\cef.redist.x64.targets')" />

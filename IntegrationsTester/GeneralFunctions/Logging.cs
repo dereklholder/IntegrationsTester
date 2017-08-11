@@ -8,7 +8,7 @@ using System.Windows;
 
 namespace IntegrationsTester.GeneralFunctions
 {
-    public class Logging :IDisposable
+    public class Logging : IDisposable
     {
         private string _logString;
         private string _timeStamp;

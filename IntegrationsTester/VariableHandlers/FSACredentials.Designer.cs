@@ -12,7 +12,7 @@ namespace IntegrationsTester.VariableHandlers {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.0.1.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "15.1.0.0")]
     internal sealed partial class FSACredentials : global::System.Configuration.ApplicationSettingsBase {
         
         private static FSACredentials defaultInstance = ((FSACredentials)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new FSACredentials())));
