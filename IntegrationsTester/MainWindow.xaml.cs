@@ -492,7 +492,10 @@ namespace IntegrationsTester
         private void BuildPostButton_Click(object sender, RoutedEventArgs e)
         {
 
-            OrderIDBox.Text = Engines.OEHPParamBuilder.OrderIDRandom();
+            if (!TransactionTypeComboBox.Text.Equals("QUERY_PAYMENT"))
+            {
+                OrderIDBox.Text = Engines.OEHPParamBuilder.OrderIDRandom();
+            }           
             Engines.OEHPParamBuilder buildPost = new Engines.OEHPParamBuilder(accountTokenBox.Text, (string)TransactionTypeComboBox.SelectedItem, (string)EntryModeComboBox.SelectedItem, (string)ChargeTypeComboBox.SelectedItem, AmountBox.Text, OrderIDBox.Text, (string)AccountTypeComboBox.SelectedItem, (string)TCCComboBox.SelectedItem, CustomParametersBox.Text);
             PostParametersBox.Text = buildPost.BuildAPost();
 

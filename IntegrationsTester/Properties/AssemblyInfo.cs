@@ -10,7 +10,7 @@ using System.Windows;
 [assembly: AssemblyTitle("IntegrationsTester")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyCompany("OpenEdge Dev Services")]
 [assembly: AssemblyProduct("IntegrationsTester")]
 [assembly: AssemblyCopyright("Copyright © Microsoft 2017")]
 [assembly: AssemblyTrademark("")]
