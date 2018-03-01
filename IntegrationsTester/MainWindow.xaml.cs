@@ -29,6 +29,7 @@ namespace IntegrationsTester
         {
             InitializeComponent();
             SetCommonCollections();
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
         }
         #region EdgeExpressProcessingMethods
